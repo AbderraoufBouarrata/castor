@@ -1,0 +1,1010 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "setup.js",
+      "file_type": "code",
+      "source_file": "apps/bot/config/setup.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_bot_config_setup",
+      "community": 4,
+      "norm_label": "setup.js"
+    },
+    {
+      "label": "form()",
+      "file_type": "code",
+      "source_file": "apps/bot/config/setup.js",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "apps_bot_config_setup_form",
+      "community": 4,
+      "norm_label": "form()"
+    },
+    {
+      "label": "call()",
+      "file_type": "code",
+      "source_file": "apps/bot/config/setup.js",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "apps_bot_config_setup_call",
+      "community": 4,
+      "norm_label": "call()"
+    },
+    {
+      "label": "photo",
+      "file_type": "code",
+      "source_file": "apps/bot/config/setup.js",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "apps_bot_config_setup_photo",
+      "community": 4,
+      "norm_label": "photo"
+    },
+    {
+      "label": "index.js",
+      "file_type": "code",
+      "source_file": "apps/bot/index.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_bot_index",
+      "community": 5,
+      "norm_label": "index.js"
+    },
+    {
+      "label": "call()",
+      "file_type": "code",
+      "source_file": "apps/bot/index.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "apps_bot_index_call",
+      "community": 5,
+      "norm_label": "call()"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_bot_package",
+      "community": 0,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "apps_bot_package_name",
+      "community": 0,
+      "norm_label": "name"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "apps_bot_package_private",
+      "community": 0,
+      "norm_label": "private"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "apps_bot_package_type",
+      "community": 0,
+      "norm_label": "type"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "apps_bot_package_scripts",
+      "community": 0,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "start",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "apps_bot_package_scripts_start",
+      "community": 0,
+      "norm_label": "start"
+    },
+    {
+      "label": "setup",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "apps_bot_package_scripts_setup",
+      "community": 0,
+      "norm_label": "setup"
+    },
+    {
+      "label": "engines",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "apps_bot_package_engines",
+      "community": 0,
+      "norm_label": "engines"
+    },
+    {
+      "label": "node",
+      "file_type": "code",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "apps_bot_package_engines_node",
+      "community": 0,
+      "norm_label": "node"
+    },
+    {
+      "label": "job-state.js",
+      "file_type": "code",
+      "source_file": "packages/core/job-state.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "packages_core_job_state",
+      "community": 10,
+      "norm_label": "job-state.js"
+    },
+    {
+      "label": "STATES",
+      "file_type": "code",
+      "source_file": "packages/core/job-state.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "packages_core_job_state_states",
+      "community": 10,
+      "norm_label": "states"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "packages/core/package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "packages_core_package",
+      "community": 6,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "packages/core/package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "packages_core_package_name",
+      "community": 6,
+      "norm_label": "name"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "packages/core/package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "packages_core_package_private",
+      "community": 6,
+      "norm_label": "private"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "packages/core/package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "packages_core_package_type",
+      "community": 6,
+      "norm_label": "type"
+    },
+    {
+      "label": "exports",
+      "file_type": "code",
+      "source_file": "packages/core/package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "packages_core_package_exports",
+      "community": 6,
+      "norm_label": "exports"
+    },
+    {
+      "label": "engines",
+      "file_type": "code",
+      "source_file": "packages/core/package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "packages_core_package_engines",
+      "community": 6,
+      "norm_label": "engines"
+    },
+    {
+      "label": "node",
+      "file_type": "code",
+      "source_file": "packages/core/package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "packages_core_package_engines_node",
+      "community": 6,
+      "norm_label": "node"
+    },
+    {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "claude",
+      "community": 7,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_bot_readme",
+      "community": 3,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "castor bot",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_bot_readme_castor_bot",
+      "community": 3,
+      "norm_label": "castor bot"
+    },
+    {
+      "label": "Requirements",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "apps_bot_readme_requirements",
+      "community": 3,
+      "norm_label": "requirements"
+    },
+    {
+      "label": "First run",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "apps_bot_readme_first_run",
+      "community": 3,
+      "norm_label": "first run"
+    },
+    {
+      "label": "Useful checks",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "apps_bot_readme_useful_checks",
+      "community": 3,
+      "norm_label": "useful checks"
+    },
+    {
+      "label": "Changing name, description or avatar",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "apps_bot_readme_changing_name_description_or_avatar",
+      "community": 3,
+      "norm_label": "changing name, description or avatar"
+    },
+    {
+      "label": "architecture.md",
+      "file_type": "document",
+      "source_file": "docs/architecture.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_architecture",
+      "community": 8,
+      "norm_label": "architecture.md"
+    },
+    {
+      "label": "runbook.md",
+      "file_type": "document",
+      "source_file": "docs/runbook.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_runbook",
+      "community": 9,
+      "norm_label": "runbook.md"
+    },
+    {
+      "label": "threat-model.md",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_threat_model",
+      "community": 1,
+      "norm_label": "threat-model.md"
+    },
+    {
+      "label": "Architecture",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_threat_model_architecture",
+      "community": 1,
+      "norm_label": "architecture"
+    },
+    {
+      "label": "The trust boundary",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "docs_threat_model_the_trust_boundary",
+      "community": 1,
+      "norm_label": "the trust boundary"
+    },
+    {
+      "label": "Components",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "docs_threat_model_components",
+      "community": 1,
+      "norm_label": "components"
+    },
+    {
+      "label": "Why the reaper is separate",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L54",
+      "_origin": "ast",
+      "id": "docs_threat_model_why_the_reaper_is_separate",
+      "community": 1,
+      "norm_label": "why the reaper is separate"
+    },
+    {
+      "label": "Why the worker agent lives outside `apps/`",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "docs_threat_model_why_the_worker_agent_lives_outside_apps",
+      "community": 1,
+      "norm_label": "why the worker agent lives outside `apps/`"
+    },
+    {
+      "label": "Job lifecycle",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "docs_threat_model_job_lifecycle",
+      "community": 1,
+      "norm_label": "job lifecycle"
+    },
+    {
+      "label": "Queue",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L106",
+      "_origin": "ast",
+      "id": "docs_threat_model_queue",
+      "community": 1,
+      "norm_label": "queue"
+    },
+    {
+      "label": "Worker lifecycle",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L113",
+      "_origin": "ast",
+      "id": "docs_threat_model_worker_lifecycle",
+      "community": 1,
+      "norm_label": "worker lifecycle"
+    },
+    {
+      "label": "Isolation constraints",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L127",
+      "_origin": "ast",
+      "id": "docs_threat_model_isolation_constraints",
+      "community": 1,
+      "norm_label": "isolation constraints"
+    },
+    {
+      "label": "Threat model, stated plainly",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L140",
+      "_origin": "ast",
+      "id": "docs_threat_model_threat_model_stated_plainly",
+      "community": 1,
+      "norm_label": "threat model, stated plainly"
+    },
+    {
+      "label": "Build order",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L153",
+      "_origin": "ast",
+      "id": "docs_threat_model_build_order",
+      "community": 1,
+      "norm_label": "build order"
+    },
+    {
+      "label": "Deferred",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L171",
+      "_origin": "ast",
+      "id": "docs_threat_model_deferred",
+      "community": 1,
+      "norm_label": "deferred"
+    },
+    {
+      "label": "Appendix: glossary",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L182",
+      "_origin": "ast",
+      "id": "docs_threat_model_appendix_glossary",
+      "community": 2,
+      "norm_label": "appendix: glossary"
+    },
+    {
+      "label": "Machine layer",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L184",
+      "_origin": "ast",
+      "id": "docs_threat_model_machine_layer",
+      "community": 2,
+      "norm_label": "machine layer"
+    },
+    {
+      "label": "Container layer",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L197",
+      "_origin": "ast",
+      "id": "docs_threat_model_container_layer",
+      "community": 2,
+      "norm_label": "container layer"
+    },
+    {
+      "label": "Kubernetes control plane",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L209",
+      "_origin": "ast",
+      "id": "docs_threat_model_kubernetes_control_plane",
+      "community": 2,
+      "norm_label": "kubernetes control plane"
+    },
+    {
+      "label": "Workload objects",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L225",
+      "_origin": "ast",
+      "id": "docs_threat_model_workload_objects",
+      "community": 2,
+      "norm_label": "workload objects"
+    },
+    {
+      "label": "Storage",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L241",
+      "_origin": "ast",
+      "id": "docs_threat_model_storage",
+      "community": 2,
+      "norm_label": "storage"
+    },
+    {
+      "label": "Networking",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L252",
+      "_origin": "ast",
+      "id": "docs_threat_model_networking",
+      "community": 2,
+      "norm_label": "networking"
+    },
+    {
+      "label": "Configuration",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L267",
+      "_origin": "ast",
+      "id": "docs_threat_model_configuration",
+      "community": 2,
+      "norm_label": "configuration"
+    },
+    {
+      "label": "Project components",
+      "file_type": "document",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L278",
+      "_origin": "ast",
+      "id": "docs_threat_model_project_components",
+      "community": 2,
+      "norm_label": "project components"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/config/setup.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "apps_bot_config_setup",
+      "target": "apps_bot_config_setup_call",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/config/setup.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_bot_config_setup",
+      "target": "apps_bot_config_setup_form",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/config/setup.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "apps_bot_config_setup",
+      "target": "apps_bot_config_setup_photo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/index.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_bot_index",
+      "target": "apps_bot_index_call",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_bot_package",
+      "target": "apps_bot_package_engines",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "apps_bot_package",
+      "target": "apps_bot_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "apps_bot_package",
+      "target": "apps_bot_package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "apps_bot_package",
+      "target": "apps_bot_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_bot_package",
+      "target": "apps_bot_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_bot_package_scripts",
+      "target": "apps_bot_package_scripts_setup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_bot_package_scripts",
+      "target": "apps_bot_package_scripts_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_bot_package_engines",
+      "target": "apps_bot_package_engines_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/core/job-state.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_core_job_state",
+      "target": "packages_core_job_state_states",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/core/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_core_package",
+      "target": "packages_core_package_engines",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/core/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "packages_core_package",
+      "target": "packages_core_package_exports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/core/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_core_package",
+      "target": "packages_core_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/core/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "packages_core_package",
+      "target": "packages_core_package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/core/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_core_package",
+      "target": "packages_core_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/core/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "packages_core_package_engines",
+      "target": "packages_core_package_engines_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "apps_bot_readme",
+      "target": "apps_bot_readme_castor_bot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_changing_name_description_or_avatar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_first_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_useful_checks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_threat_model",
+      "target": "docs_threat_model_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "docs_threat_model_architecture",
+      "target": "docs_threat_model_appendix_glossary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L153",
+      "weight": 1.0,
+      "source": "docs_threat_model_architecture",
+      "target": "docs_threat_model_build_order",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "docs_threat_model_architecture",
+      "target": "docs_threat_model_components",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L171",
+      "weight": 1.0,
+      "source": "docs_threat_model_architecture",
+      "target": "docs_threat_model_deferred",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "docs_threat_model_architecture",
+      "target": "docs_threat_model_job_lifecycle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "docs_threat_model_architecture",
+      "target": "docs_threat_model_the_trust_boundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "docs_threat_model_architecture",
+      "target": "docs_threat_model_worker_lifecycle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "docs_threat_model_components",
+      "target": "docs_threat_model_why_the_reaper_is_separate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "docs_threat_model_components",
+      "target": "docs_threat_model_why_the_worker_agent_lives_outside_apps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "docs_threat_model_job_lifecycle",
+      "target": "docs_threat_model_queue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L127",
+      "weight": 1.0,
+      "source": "docs_threat_model_worker_lifecycle",
+      "target": "docs_threat_model_isolation_constraints",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L140",
+      "weight": 1.0,
+      "source": "docs_threat_model_worker_lifecycle",
+      "target": "docs_threat_model_threat_model_stated_plainly",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L267",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_configuration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L197",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_container_layer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L209",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_kubernetes_control_plane",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L184",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_machine_layer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L252",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_networking",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L278",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_project_components",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L241",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_storage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/threat-model.md",
+      "source_location": "L225",
+      "weight": 1.0,
+      "source": "docs_threat_model_appendix_glossary",
+      "target": "docs_threat_model_workload_objects",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}

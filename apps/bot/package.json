@@ -1,0 +1,12 @@
+{
+  "name": "@castor/bot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env index.js",
+    "setup": "node --env-file=.env config/setup.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

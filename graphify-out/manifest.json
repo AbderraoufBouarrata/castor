@@ -1,0 +1,67 @@
+{
+  ".claude/settings.local.json": {
+    "mtime": 1792623778.3615746,
+    "ast_hash": "fbf2138542d69e78639d5b33d5d2dbb7",
+    "semantic_hash": ""
+  },
+  "apps/bot/config/setup.js": {
+    "mtime": 1792624802.4920154,
+    "ast_hash": "7fe087cb857292e462d44b0f25fff442",
+    "semantic_hash": ""
+  },
+  "apps/bot/index.js": {
+    "mtime": 1792624793.0188508,
+    "ast_hash": "1beec7c321c5d0e44d2e388fdf1bea38",
+    "semantic_hash": ""
+  },
+  "apps/bot/package.json": {
+    "mtime": 1792624802.8623962,
+    "ast_hash": "fdf21eec628ea807de666a9b35e0e091",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1792622615.7885756,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "apps/bot/README.md": {
+    "mtime": 1792624813.9682236,
+    "ast_hash": "649d96d510520fc231b17a28d2732b55",
+    "semantic_hash": ""
+  },
+  "docs/architecture.md": {
+    "mtime": 1792622615.788489,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "docs/runbook.md": {
+    "mtime": 1792622615.7885494,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "docs/threat-model.md": {
+    "mtime": 1792623052.1286294,
+    "ast_hash": "ba452d5af8cec33826c0b3e47c3c2c06",
+    "semantic_hash": ""
+  },
+  "apps/bot/Castor-ico.png": {
+    "mtime": 1792623285.2063506,
+    "ast_hash": "69cecae68a12a1423d1868621c33f66c",
+    "semantic_hash": ""
+  },
+  "apps/bot/castor.jpg": {
+    "mtime": 1792623733.04095,
+    "ast_hash": "e31276a78185ce661e436ed2c6bb43a1",
+    "semantic_hash": ""
+  },
+  "packages/core/package.json": {
+    "mtime": 1792626240.8479729,
+    "ast_hash": "cb21b7711c5d2b7329abe9b2f0599af8",
+    "semantic_hash": ""
+  },
+  "packages/core/job-state.js": {
+    "mtime": 1792626240.844095,
+    "ast_hash": "98ec99bf4df0127ca3f9cffd4f1cbd41",
+    "semantic_hash": ""
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@castor/core",
+  "private": true,
+  "type": "module",
+  "exports": "./job-state.js",
+  "engines": {
+    "node": ">=22"
+  }
+}
