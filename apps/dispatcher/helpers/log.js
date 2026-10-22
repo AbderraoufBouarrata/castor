@@ -1,14 +1,11 @@
 // =============================================================================
-// Log formatting
+// Dispatcher log helpers
 //
-// Every terminal line looks like: "12:04:31 🔨 job 7bfe34b6 → building".
+// Dispatcher-specific bits. The line format itself (log, short) comes from
+// @castor/core, shared with the reaper.
 // =============================================================================
 
-/** Print one line: local time, emoji, text. */
-export const log = (emoji, text) => console.log(`${new Date().toLocaleTimeString('en-GB')} ${emoji} ${text}`);
-
-/** First 8 characters of the job id. */
-export const short = (job) => job.id.slice(0, 8);
+import { log, short } from '@castor/core';
 
 /** "https://github.com/owner/repo" → "owner/repo". */
 export const repoName = (job) => new URL(job.repoUrl).pathname.replace(/^\/|\/$|\.git$/g, '');

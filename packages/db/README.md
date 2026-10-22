@@ -107,9 +107,25 @@ const { finished, promoted } = await finishJob(job, JobState.failed, 'build time
 | `phone` | Submitter's phone, null unless shared |
 | `repo_url` | `https://github.com/<owner>/<repo>` |
 | `state` | `waiting`, `queued`, `building`, `running`, `done`, `failed`, `rejected` |
-| `error` | Why it failed or was rejected |
+| `error` | Why it failed or was rejected, as `source: message` (see below) |
 | `created_at`, `queued_at`, `building_at`, `running_at`, `finished_at` | One timestamp per state change. Metrics are differences between them. |
 | `updated_at` | Bumped on every write. Change feed cursor for the bot. |
+
+### Error convention
+
+`jobs.error` always starts with the component responsible, then a colon:
+
+```
+<source>: <message>
+```
+
+| Source | Example |
+|---|---|
+| `dispatcher` | `dispatcher: docker build exited with code 1 (simulated)` |
+| `reaper` | `reaper: build timed out, stuck in building for 10m 04s (limit 10m 00s); the dispatcher likely stopped mid-build` |
+| `reaper` | `reaper: exceeded time-to-live, running for 15m 02s (limit 15m 00s)` |
+
+The bot shows the text as-is, so the user sees who failed their job and why. Any new component that writes `error` uses its own name as the source.
 
 ### One active job per user
 

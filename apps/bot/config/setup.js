@@ -33,6 +33,7 @@ await call('setMyCommands', form({
   commands: JSON.stringify([
     { command: 'build', description: 'Build a GitHub repo: /build <url>' },
     { command: 'jobs', description: 'Your recent jobs' },
+    { command: 'clear', description: 'Delete this conversation (last 48 hours)' },
     { command: 'help', description: 'How to use the bot' },
   ]),
 }));

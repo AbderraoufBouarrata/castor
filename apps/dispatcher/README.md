@@ -18,14 +18,16 @@ When a job ends, the dispatcher moves the same user's oldest `waiting` job into 
 | `services/scheduler.js` | Main loop: claim queued jobs into free slots, log the queue |
 | `services/simulator.js` | Walks one job through building/running with sleeps (stands in for the VM) |
 | `services/jobs.js` | Every database read and write: count, claim, mark running. `finishJob` (finish + promote) comes from `@castor/db`, shared with the reaper. |
-| `helpers/log.js` | Emoji log line formatting |
+| `helpers/log.js` | Dispatcher log bits (`repoName`, `elapsed`, `logPromotion`). The line format itself (`log`, `short`) comes from `@castor/core`, shared with the reaper. |
 
 ## How it works
 
 1. Every `POLL_SECONDS`, fill free slots (up to `MAX_CONCURRENT`) with queued jobs.
 2. **Claim:** take the job that entered the queue first (`ORDER BY queued_at`) with `FOR UPDATE SKIP LOCKED`, and mark it `building`. Two dispatchers never take the same job.
-3. **Building:** sleep one phase. With chance `FAIL_RATE / 2`, fail here with `docker build exited with code 1 (simulated)`.
-4. **Running:** mark `running`, sleep one phase. Remaining failures happen here with `container exited with code 1 (simulated)`.
+3. **Building:** sleep one phase. With chance `FAIL_RATE / 2`, fail here with `dispatcher: docker build exited with code 1 (simulated)`.
+4. **Running:** mark `running`, sleep one phase. Remaining failures happen here with `dispatcher: container exited with code 1 (simulated)`.
+
+Errors follow the `source: message` convention (see `packages/db/README.md`).
 5. **Finish:** mark `done` or `failed`, and in the same transaction promote the user's oldest `waiting` job to `queued`.
 
 A phase lasts between `STEP_SECONDS` and `2 × STEP_SECONDS`.
@@ -93,7 +95,7 @@ STEP_SECONDS=1 FAIL_RATE=0 npm run dev
 12:04:43 ▶️ started job 62ce4660 (docker/welcome-to-docker) for user 111222333 · slot 1/2
 12:04:43 🔨 job 62ce4660 → building
 12:04:43 📋 queue: 0 queued · 0 waiting · 1/2 slots busy
-12:04:49 ❌ job 62ce4660 → failed after 6s: docker build exited with code 1 (simulated)
+12:04:49 ❌ job 62ce4660 → failed after 6s: dispatcher: docker build exited with code 1 (simulated)
 ```
 
 | Emoji | Event |

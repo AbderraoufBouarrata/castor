@@ -6,12 +6,12 @@
 //   services/scheduler.js  main loop: claim queued jobs into free slots
 //   services/simulator.js  walks a job through building/running (fake VM)
 //   services/jobs.js       every database read and write
-//   helpers/log.js         emoji log lines
+//   helpers/log.js         dispatcher log bits (line format: @castor/core)
 // =============================================================================
 
 import { db } from '@castor/db';
+import { log } from '@castor/core';
 import { MAX_CONCURRENT, STEP_SECONDS, FAIL_RATE } from './config.js';
-import { log } from './helpers/log.js';
 import { run, stop } from './services/scheduler.js';
 
 // Kubernetes stops pods with SIGTERM: stop claiming, let in-flight jobs finish.

@@ -5,7 +5,7 @@
 //   config.js            env vars and defaults
 //   services/sweeper.js  loop: fail stuck jobs, promote the next waiting one
 //   services/jobs.js     database queries
-//   helpers/log.js       emoji log lines
+//   @castor/core         emoji log lines (shared with the dispatcher)
 //
 // Separate from the dispatcher on purpose: if the dispatcher dies mid-job,
 // the reaper is still running and cleans up after it.
@@ -13,7 +13,7 @@
 
 import { db } from "@castor/db";
 import { BUILD_TIMEOUT_SECONDS, TTL_SECONDS, SWEEP_SECONDS } from "./config.js";
-import { log, duration } from "./helpers/log.js";
+import { log, duration } from "@castor/core";
 import { run, stop } from "./services/sweeper.js";
 
 for (const signal of ["SIGTERM", "SIGINT"]) process.on(signal, () => stop(signal));

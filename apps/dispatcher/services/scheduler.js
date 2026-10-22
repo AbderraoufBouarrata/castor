@@ -7,7 +7,8 @@
 
 import { setTimeout as sleep } from 'node:timers/promises';
 import { MAX_CONCURRENT, POLL_SECONDS } from '../config.js';
-import { log, short, repoName } from '../helpers/log.js';
+import { log, short } from '@castor/core';
+import { repoName } from '../helpers/log.js';
 import { countPending, claimNextJob } from './jobs.js';
 import { simulate } from './simulator.js';
 

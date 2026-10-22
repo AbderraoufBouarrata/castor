@@ -13,6 +13,7 @@ import { telegram, reply } from './helpers/telegram.js';
 import { build } from './commands/build.js';
 import { jobs } from './commands/jobs.js';
 import { help } from './commands/help.js';
+import { clear } from './commands/clear.js';
 import { watchJobs } from './watcher.js';
 
 // -----------------------------------------------------------------------------
@@ -27,7 +28,7 @@ for (const key of ['BOT_TOKEN', 'API_URL', 'API_TOKEN']) {
 // Commands
 // -----------------------------------------------------------------------------
 
-const COMMANDS = { '/build': build, '/jobs': jobs, '/start': help, '/help': help };
+const COMMANDS = { '/build': build, '/jobs': jobs, '/clear': clear, '/start': help, '/help': help };
 
 /** Route a text message to its command. Errors are logged; the user gets a generic reply. */
 async function handle(msg) {

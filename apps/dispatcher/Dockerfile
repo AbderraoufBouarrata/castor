@@ -43,6 +43,7 @@ COPY packages/core/package.json packages/core/
 COPY packages/db/package.json packages/db/
 RUN npm ci --omit=dev -w @castor/dispatcher
 
+COPY packages/core packages/core
 COPY packages/db packages/db
 COPY --from=build /app/packages/db/generated packages/db/generated
 COPY apps/dispatcher apps/dispatcher

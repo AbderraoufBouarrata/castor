@@ -10,6 +10,7 @@
     "node": ">=22.18"
   },
   "dependencies": {
+    "@castor/core": "*",
     "@castor/db": "*"
   }
 }

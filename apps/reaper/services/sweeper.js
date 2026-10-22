@@ -12,7 +12,7 @@
 import { setTimeout as sleep } from 'node:timers/promises';
 import { JobState } from '@castor/db';
 import { BUILD_TIMEOUT_SECONDS, TTL_SECONDS, SWEEP_SECONDS } from '../config.js';
-import { log, short, duration } from '../helpers/log.js';
+import { log, short, duration } from '@castor/core';
 import { findStuckJobs, finishJob } from './jobs.js';
 
 // -----------------------------------------------------------------------------
@@ -28,10 +28,18 @@ const wake = new AbortController();
 // Sweep
 // -----------------------------------------------------------------------------
 
-/** Why a stuck job is being failed, for the job record and the user. */
+/** Seconds since `date`. */
+const secondsSince = (date) => (Date.now() - date) / 1000;
+
+/**
+ * Why a stuck job is being failed, stored in jobs.error and shown to the user.
+ * Follows the "source: message" convention (see packages/db README).
+ */
 const reason = (job) => job.state === JobState.building
-  ? `build timed out after ${duration(BUILD_TIMEOUT_SECONDS)}`
-  : `exceeded time-to-live of ${duration(TTL_SECONDS)}`;
+  ? `reaper: build timed out, stuck in building for ${duration(secondsSince(job.buildingAt))} ` +
+    `(limit ${duration(BUILD_TIMEOUT_SECONDS)}); the dispatcher likely stopped mid-build`
+  : `reaper: exceeded time-to-live, running for ${duration(secondsSince(job.runningAt))} ` +
+    `(limit ${duration(TTL_SECONDS)})`;
 
 /** Fail every stuck job. Returns how many were reaped. */
 async function sweep() {

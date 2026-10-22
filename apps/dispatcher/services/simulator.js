@@ -12,7 +12,8 @@
 import { setTimeout as sleep } from 'node:timers/promises';
 import { JobState } from '@castor/db';
 import { STEP_SECONDS, FAIL_RATE } from '../config.js';
-import { log, short, elapsed, logPromotion } from '../helpers/log.js';
+import { log, short } from '@castor/core';
+import { elapsed, logPromotion } from '../helpers/log.js';
 import { markRunning, finishJob } from './jobs.js';
 
 // -----------------------------------------------------------------------------
@@ -39,13 +40,14 @@ export async function simulate(job) {
 
   const fails = Math.random() < FAIL_RATE;
   const failsAtBuild = fails && Math.random() < 0.5;
-  if (failsAtBuild) return fail(job, 'docker build exited with code 1 (simulated)');
+  // Errors follow the "source: message" convention (see packages/db README).
+  if (failsAtBuild) return fail(job, 'dispatcher: docker build exited with code 1 (simulated)');
 
   if (!(await markRunning(job.id))) return log('⚠️', `job ${short(job)} is no longer building, leaving it`);
   log('🚀', `job ${short(job)} → running`);
   await phase();
 
-  if (fails) return fail(job, 'container exited with code 1 (simulated)');
+  if (fails) return fail(job, 'dispatcher: container exited with code 1 (simulated)');
 
   log('✅', `job ${short(job)} → done in ${elapsed(job)}`);
   logPromotion(await finishJob(job, JobState.done));

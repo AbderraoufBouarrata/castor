@@ -34,7 +34,7 @@ The watcher's cursor starts when the bot starts, so changes made while the bot w
 | `index.js` | Bot start: env config, command router, poll loop, starts the watcher |
 | `watcher.js` | Polls job-api's change feed, messages users on state changes |
 | `Dockerfile` | Production image |
-| `commands/<name>.js` | One file per command (`build`, `jobs`, `help`) |
+| `commands/<name>.js` | One file per command (`build`, `jobs`, `clear`, `help`) |
 | `helpers/telegram.js` | Telegram Bot API client and `reply()` |
 | `helpers/api.js` | Job API client (sends `API_TOKEN`) |
 | `helpers/format.js` | Shared reply text, job formatting (state emojis), state-change messages |
@@ -48,6 +48,7 @@ Adding a command: create `commands/<name>.js`, add it to `COMMANDS` in `index.js
 |---|---|
 | `/build <url>` | Submit `https://github.com/<owner>/<repo>`. Replies 📥 right away; the watcher then announces `queued` or `waiting` and every later state. Tells the user if the repo is private/missing (🔒) or has no root Dockerfile (📄). |
 | `/jobs` | Your 10 most recent jobs and their state |
+| `/clear` | Delete the conversation with the bot, both sides. Private chats only. Telegram only allows deleting messages from the last 48 hours, so older ones stay. Tries the last 1000 message ids (`SCAN_BACK` in `commands/clear.js`). |
 | `/start`, `/help`, anything else | Usage text |
 
 ## Requirements
