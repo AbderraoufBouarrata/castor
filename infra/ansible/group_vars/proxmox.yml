@@ -1,0 +1,47 @@
+# =============================================================================
+# Settings for the Proxmox host. Override any of them on the command line:
+#   ansible-playbook playbooks/k8s-node-template.yml -e k8s_node_template_vmid=9100
+#
+# Names, VMIDs and tags follow docs/architecture.md, "VMs and templates".
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Proxmox
+# -----------------------------------------------------------------------------
+
+# Storage for VM disks and the cloud-init drive. List yours: pvesm status
+proxmox_storage: local-lvm
+
+# Network bridge the VMs attach to. List yours: ip -br link | grep vmbr
+proxmox_bridge: vmbr0
+
+# Tags on every template.
+template_tags: castor;template
+
+# -----------------------------------------------------------------------------
+# k8s node template: Ubuntu + cloud-init + qemu-guest-agent
+# Cloned by Terraform for the k8s nodes, and the starting point of the
+# ephemeral worker template.
+# -----------------------------------------------------------------------------
+
+k8s_node_template_vmid: 9000
+k8s_node_template_name: castor-k8s-node-template
+
+# -----------------------------------------------------------------------------
+# Ephemeral worker template: k8s node template + Docker + worker agent
+# Cloned by the dispatcher, one ephemeral worker per job. Playbook not written yet.
+# -----------------------------------------------------------------------------
+
+ephemeral_worker_template_vmid: 9001
+ephemeral_worker_template_name: castor-ephemeral-worker-template
+
+# -----------------------------------------------------------------------------
+# Ubuntu cloud image
+# -----------------------------------------------------------------------------
+
+# Ubuntu 24.04 LTS (noble), verified against Canonical's SHA256SUMS.
+ubuntu_image_url: https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
+ubuntu_image_checksum: sha256:https://cloud-images.ubuntu.com/noble/current/SHA256SUMS
+
+# Where the download is kept on the host (reused on rebuilds).
+ubuntu_image_cache: /var/lib/vz/template/cache/noble-server-cloudimg-amd64.img

@@ -9,7 +9,7 @@ Oct 20, 2026 · @Abderraouf
 ```
 ┌─ Proxmox host — bare metal ──────────────────────────────────────────────────┐
 │                                                                              │
-│  ┌─ VM: k8s-node-01 (+ node-02, node-03) ─────────────────────────────────┐  │
+│  ┌─ k8s node: castor-k8s-node-01 (+ 02, 03) ──────────────────────────────┐  │
 │  │                                                                        │  │
 │  │  Control plane: kube-apiserver · scheduler · controller-manager        │  │
 │  │  etcd — every object in the cluster lives here                         │  │
@@ -33,20 +33,20 @@ Oct 20, 2026 · @Abderraouf
 │  │  └───────────────────┘  └───────────────────┘                           │  │
 │  └────────────────────────────────────────────────────────────────────────┘  │
 │                                                                              │
-│  ┌─ VM: job-7f3a (ephemeral, one job only) — UNTRUSTED ───────────────────┐  │
+│  ┌─ ephemeral worker: castor-ephemeral-worker-7f3a — UNTRUSTED ───────────┐  │
 │  │  Docker daemon — no kubelet, no pod, never joins the cluster           │  │
 │  │                                                                        │  │
 │  │  [ container: their Dockerfile ]   [ container: metrics agent ]        │  │
 │  │                                                                        │  │
 │  │  no inbound · egress allowlist · CPU, memory and disk caps ·           │  │
-│  │  destroyed at TTL                                                      │  │
+│  │  one job only · 0 to 3 at a time · destroyed at TTL                    │  │
 │  └────────────────────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-Build service architecture: 2 VM kinds, 6 pods.
+Build service architecture: 2 VM kinds (k8s node, ephemeral worker), 6 pods.
 
-Four layers nest on the cluster side: host, then a virtual machine, then pods, then containers. The job machine has no pod layer at all — if a stranger's container escapes, it lands inside a disposable virtual machine with no inbound route and a timer running.
+Four layers nest on the cluster side: host, then a virtual machine, then pods, then containers. The ephemeral worker has no pod layer at all — if a stranger's container escapes, it lands inside a disposable virtual machine with no inbound route and a timer running.
 
 ---
 
@@ -134,6 +134,32 @@ The bot needs neither a Service nor an Ingress, because nothing ever connects to
 
 Worth knowing before the Proxmox token goes into a Secret: encryption at rest is something you turn on, not something you get.
 
+## VMs and templates
+
+Four kinds of machine live on the Proxmox host. These are the only terms used for them, in docs and code.
+
+| Term | What it is |
+|---|---|
+| k8s node | Long-lived VM running the Kubernetes control plane and the pods (job-api, bot, dispatcher, reaper, Postgres). One to start with. |
+| ephemeral worker | Temporary VM that runs one job's untrusted build and container, then is destroyed. Never joins the cluster. 0 to 3 exist at a time. |
+| k8s node template | Template the k8s nodes are cloned from: Ubuntu, cloud-init, qemu-guest-agent. Never started. |
+| ephemeral worker template | Template the ephemeral workers are cloned from: the k8s node template plus Docker and the worker agent. Never started. |
+
+### Naming conventions
+
+Every VM and template starts with `castor-`, sits in a fixed VMID range for its kind, and carries Proxmox tags. Names must be DNS-safe: lowercase letters, digits, hyphens.
+
+| Term | Name | VMID | Example | Tags |
+|---|---|---|---|---|
+| k8s node template | `castor-k8s-node-template` | 9000 | `castor-k8s-node-template` | `castor;template` |
+| ephemeral worker template | `castor-ephemeral-worker-template` | 9001 | `castor-ephemeral-worker-template` | `castor;template` |
+| k8s node | `castor-k8s-node-<nn>` | 100–199 (node `nn` = 100 + `nn`) | `castor-k8s-node-01` → 101 | `castor;k8s` |
+| ephemeral worker | `castor-ephemeral-worker-<first 8 chars of job id>` | 1000–8999 | `castor-ephemeral-worker-7bfe34b6` | `castor;ephemeral-worker` |
+
+- **Templates** are built by Ansible (`infra/ansible`), never started, rebuilt in place under the same name and VMID.
+- **k8s nodes** are cloned from the k8s node template by Terraform (`infra/terraform`).
+- **Ephemeral workers** are cloned from the ephemeral worker template by the dispatcher, one per job, at most 3 at a time (`MAX_CONCURRENT`). The job id in the name lets the reaper match every ephemeral worker to its job and destroy orphans (a `castor;ephemeral-worker` VM whose job is finished or missing). The dispatcher only ever allocates VMIDs inside 1000–8999.
+
 ## Project components
 
 Only the dispatcher holds Proxmox credentials. Everything else is deliberately powerless.
@@ -141,7 +167,7 @@ Only the dispatcher holds Proxmox credentials. Everything else is deliberately p
 | Term | What it is |
 |---|---|
 | Job API | Accepts submissions, writes job records, exposes status, serves the status page. Owns no infrastructure powers. |
-| Dispatcher | Claims queued jobs and calls Proxmox to create workers. The only component with Proxmox credentials. |
+| Dispatcher | Claims queued jobs and calls Proxmox to create ephemeral workers. The only component with Proxmox credentials. |
 | Reaper | Destroys expired or orphaned virtual machines. Separate from the dispatcher so a crash there does not leak machines. |
 | Telegram bot | Telegram client over long polling. Turns chat commands into Job API calls. |
 | Proxmox API | The interface for creating, cloning and destroying virtual machines programmatically. |

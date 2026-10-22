@@ -1,6 +1,6 @@
 # castor dispatcher (fake)
 
-Claims queued jobs and walks them through their lifecycle. This is the **fake** dispatcher: it sleeps instead of creating VMs on Proxmox. Its database writes are the ones the real dispatcher will make, so the queue, the one-active-job-per-user rule and the bot's notifications can all be tested with no infrastructure.
+Claims queued jobs and walks them through their lifecycle. This is the **fake** dispatcher: it sleeps instead of cloning ephemeral workers on Proxmox. Its database writes are the ones the real dispatcher will make, so the queue, the one-active-job-per-user rule and the bot's notifications can all be tested with no infrastructure.
 
 ```
 queued → building → running → done
@@ -16,7 +16,7 @@ When a job ends, the dispatcher moves the same user's oldest `waiting` job into 
 | `index.js` | Entry point: starts the scheduler, handles SIGTERM/SIGINT |
 | `config.js` | Env vars and their defaults |
 | `services/scheduler.js` | Main loop: claim queued jobs into free slots, log the queue |
-| `services/simulator.js` | Walks one job through building/running with sleeps (stands in for the VM) |
+| `services/simulator.js` | Walks one job through building/running with sleeps (stands in for the ephemeral worker) |
 | `services/jobs.js` | Every database read and write: count, claim, mark running. `finishJob` (finish + promote) comes from `@castor/db`, shared with the reaper. |
 | `helpers/log.js` | Dispatcher log bits (`repoName`, `elapsed`, `logPromotion`). The line format itself (`log`, `short`) comes from `@castor/core`, shared with the reaper. |
 
@@ -26,11 +26,9 @@ When a job ends, the dispatcher moves the same user's oldest `waiting` job into 
 2. **Claim:** take the job that entered the queue first (`ORDER BY queued_at`) with `FOR UPDATE SKIP LOCKED`, and mark it `building`. Two dispatchers never take the same job.
 3. **Building:** sleep one phase. With chance `FAIL_RATE / 2`, fail here with `dispatcher: docker build exited with code 1 (simulated)`.
 4. **Running:** mark `running`, sleep one phase. Remaining failures happen here with `dispatcher: container exited with code 1 (simulated)`.
-
-Errors follow the `source: message` convention (see `packages/db/README.md`).
 5. **Finish:** mark `done` or `failed`, and in the same transaction promote the user's oldest `waiting` job to `queued`.
 
-A phase lasts between `STEP_SECONDS` and `2 × STEP_SECONDS`.
+A phase lasts between `STEP_SECONDS` and `2 × STEP_SECONDS`. Errors follow the `source: message` convention (see `packages/db/README.md`).
 
 Every state move is guarded by the state it expects. If another component (e.g. the reaper) already moved the job, the dispatcher leaves it alone.
 
@@ -64,7 +62,7 @@ npm run dev
 | Var | Default | What |
 |---|---|---|
 | `DATABASE_URL` | — | Postgres connection string. Required. |
-| `MAX_CONCURRENT` | `2` | Jobs run at once. Others stay `queued` until a slot frees. |
+| `MAX_CONCURRENT` | `3` | Jobs run at once, i.e. ephemeral workers alive at once (0 to 3). Others stay `queued` until a slot frees. |
 | `STEP_SECONDS` | `4` | Each phase lasts `STEP` to `2 × STEP` seconds |
 | `FAIL_RATE` | `0.2` | Chance (0 to 1) that a job fails, half at build, half at run |
 | `POLL_SECONDS` | `2` | Seconds between queue checks |
@@ -85,17 +83,17 @@ STEP_SECONDS=1 FAIL_RATE=0 npm run dev
 ## Log output
 
 ```
-12:04:29 🦫 dispatcher (fake) up: 2 slots, 4s steps, 20% failures
-12:04:29 ▶️ started job 7bfe34b6 (docker/welcome-to-docker) for user 111222333 · slot 1/2
-12:04:29 🔨 job 7bfe34b6 → building
-12:04:29 📋 queue: 0 queued · 1 waiting · 1/2 slots busy
-12:04:35 🚀 job 7bfe34b6 → running
-12:04:41 ✅ job 7bfe34b6 → done in 12s
-12:04:41 ⏫ job 62ce4660 → queued (user 111222333's next job)
-12:04:43 ▶️ started job 62ce4660 (docker/welcome-to-docker) for user 111222333 · slot 1/2
-12:04:43 🔨 job 62ce4660 → building
-12:04:43 📋 queue: 0 queued · 0 waiting · 1/2 slots busy
-12:04:49 ❌ job 62ce4660 → failed after 6s: dispatcher: docker build exited with code 1 (simulated)
+12:04:29 🦫  dispatcher (fake) up: 3 slots, 4s steps, 20% failures
+12:04:29 ▶️  started job 7bfe34b6 (docker/welcome-to-docker) for user 111222333 · slot 1/3
+12:04:29 🔨  job 7bfe34b6 → building
+12:04:29 📋  queue: 0 queued · 1 waiting · 1/3 slots busy
+12:04:35 🚀  job 7bfe34b6 → running
+12:04:41 ✅  job 7bfe34b6 → done in 12s
+12:04:41 ⏫  job 62ce4660 → queued (user 111222333's next job)
+12:04:43 ▶️  started job 62ce4660 (docker/welcome-to-docker) for user 111222333 · slot 1/3
+12:04:43 🔨  job 62ce4660 → building
+12:04:43 📋  queue: 0 queued · 0 waiting · 1/3 slots busy
+12:04:49 ❌  job 62ce4660 → failed after 6s: dispatcher: docker build exited with code 1 (simulated)
 ```
 
 | Emoji | Event |
@@ -137,4 +135,4 @@ Any config var above can be passed with `-e`.
 
 ## Going real
 
-Step 2 of the build order replaces `services/simulator.js` with Proxmox calls: clone the golden template, inject the job token by cloud-init, wait for the worker to report. `services/jobs.js` and the scheduler stay as they are.
+Step 2 of the build order replaces `services/simulator.js` with Proxmox calls: clone the ephemeral worker template (`castor-ephemeral-worker-template`, VMID 9001) into `castor-ephemeral-worker-<job id>`, inject the job token by cloud-init, wait for the worker agent to report, destroy the ephemeral worker. `services/jobs.js` and the scheduler stay as they are. Names and VMID ranges: `docs/architecture.md`, "VMs and templates".

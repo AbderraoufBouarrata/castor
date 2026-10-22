@@ -1,0 +1,122 @@
+# =============================================================================
+# k8s node template
+#
+# Builds Proxmox template {{ k8s_node_template_vmid }} ({{ k8s_node_template_name }}):
+# Ubuntu 24.04 cloud image with qemu-guest-agent baked in and a cloud-init
+# drive attached. Nothing else.
+#
+#   Terraform clones it for the k8s nodes (cloud-init sets user, SSH key, IP).
+#   The ephemeral worker template is built on top of it later.
+#
+# Safe to re-run: if the template already exists it stops. To replace it:
+#   ansible-playbook playbooks/k8s-node-template.yml -e rebuild=true
+# =============================================================================
+
+- name: Build the k8s node template
+  hosts: proxmox
+  gather_facts: false
+
+  vars:
+    rebuild: false
+    # Scratch copy that gets customized; the cached download stays pristine.
+    work_image: /tmp/{{ k8s_node_template_name }}.img
+
+  tasks:
+    # -------------------------------------------------------------------------
+    # Already built?
+    # -------------------------------------------------------------------------
+
+    - name: Check whether VM {{ k8s_node_template_vmid }} exists
+      ansible.builtin.command: qm status {{ k8s_node_template_vmid }}
+      register: existing
+      failed_when: false
+      changed_when: false
+      check_mode: false # read-only; must run in --check too, the next steps depend on it
+
+    - name: Stop here, template already exists (pass -e rebuild=true to replace it)
+      ansible.builtin.meta: end_host
+      when: existing.rc == 0 and not (rebuild | bool)
+
+    # Fails if linked clones of the template still exist; Proxmox protects them.
+    - name: Destroy the existing template (rebuild)
+      ansible.builtin.command: qm destroy {{ k8s_node_template_vmid }} --purge
+      when: existing.rc == 0
+
+    # -------------------------------------------------------------------------
+    # Image
+    # -------------------------------------------------------------------------
+
+    - name: Install virt-customize (libguestfs-tools)
+      ansible.builtin.apt:
+        name: libguestfs-tools
+        state: present
+        update_cache: true
+
+    - name: Download the Ubuntu cloud image (checksum verified)
+      ansible.builtin.get_url:
+        url: "{{ ubuntu_image_url }}"
+        dest: "{{ ubuntu_image_cache }}"
+        checksum: "{{ ubuntu_image_checksum }}"
+        mode: "0644"
+
+    - name: Make a scratch copy to customize
+      ansible.builtin.copy:
+        src: "{{ ubuntu_image_cache }}"
+        dest: "{{ work_image }}"
+        remote_src: true
+        mode: "0644"
+
+    # qemu-guest-agent lets Proxmox (and Terraform, and the dispatcher) read a
+    # clone's IP address. An empty machine-id makes every clone generate its
+    # own on first boot, so clones don't get the same DHCP lease.
+    - name: Bake in qemu-guest-agent and reset machine-id
+      ansible.builtin.command: >
+        virt-customize -a {{ work_image }}
+        --install qemu-guest-agent
+        --run-command 'systemctl enable qemu-guest-agent'
+        --truncate /etc/machine-id
+
+    # -------------------------------------------------------------------------
+    # VM
+    # -------------------------------------------------------------------------
+
+    # Small defaults; each clone sets its own CPU, memory and disk size.
+    - name: Create VM {{ k8s_node_template_vmid }}
+      ansible.builtin.command: >
+        qm create {{ k8s_node_template_vmid }}
+        --name {{ k8s_node_template_name }}
+        --tags '{{ template_tags }}'
+        --ostype l26
+        --cpu host --cores 2 --memory 2048
+        --net0 virtio,bridge={{ proxmox_bridge }}
+        --scsihw virtio-scsi-pci
+        --agent enabled=1
+        --serial0 socket --vga serial0
+
+    - name: Import the customized image as the boot disk
+      ansible.builtin.command: >
+        qm set {{ k8s_node_template_vmid }}
+        --scsi0 {{ proxmox_storage }}:0,import-from={{ work_image }},discard=on
+        --boot order=scsi0
+
+    - name: Attach the cloud-init drive (DHCP by default; clones override)
+      ansible.builtin.command: >
+        qm set {{ k8s_node_template_vmid }}
+        --ide2 {{ proxmox_storage }}:cloudinit
+        --ipconfig0 ip=dhcp
+
+    - name: Convert to template
+      ansible.builtin.command: qm template {{ k8s_node_template_vmid }}
+
+    # -------------------------------------------------------------------------
+    # Clean up
+    # -------------------------------------------------------------------------
+
+    - name: Remove the scratch image
+      ansible.builtin.file:
+        path: "{{ work_image }}"
+        state: absent
+
+    - name: Done
+      ansible.builtin.debug:
+        msg: "k8s node template {{ k8s_node_template_vmid }} ({{ k8s_node_template_name }}) is ready. Check it: qm config {{ k8s_node_template_vmid }}"

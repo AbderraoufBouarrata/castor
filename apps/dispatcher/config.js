@@ -5,8 +5,11 @@
 // checked by @castor/db itself.
 // =============================================================================
 
-/** Jobs this dispatcher runs at once. Others stay queued until a slot frees. */
-export const MAX_CONCURRENT = Number(process.env.MAX_CONCURRENT ?? 2);
+/**
+ * Jobs run at once = ephemeral workers alive at once (0 to 3). Others stay
+ * queued until a slot frees.
+ */
+export const MAX_CONCURRENT = Number(process.env.MAX_CONCURRENT ?? 3);
 
 /** Each phase (building, running) lasts between STEP and 2×STEP seconds. */
 export const STEP_SECONDS = Number(process.env.STEP_SECONDS ?? 4);
