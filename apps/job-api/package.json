@@ -1,15 +1,17 @@
 {
-  "name": "job-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@castor/job-api",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --env-file-if-exists=.env index.js",
+    "dev": "node --watch --env-file-if-exists=.env index.js",
+    "test": "node --env-file-if-exists=.env --test",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "engines": {
+    "node": ">=22.18"
+  },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",

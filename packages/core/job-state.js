@@ -1,1 +1,1 @@
-export const STATES = ['queued', 'rejected', 'building', 'running', 'done', 'failed'];
+export const STATES = ['waiting', 'queued', 'rejected', 'building', 'running', 'done', 'failed'];

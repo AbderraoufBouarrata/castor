@@ -42,11 +42,10 @@ powerless — that is a design constraint, not an accident of implementation.
 
 | Component    | Responsibility                                                              | Privileges    |
 | ------------ | --------------------------------------------------------------------------- | ------------- |
-| Job API      | Accepts submissions, writes job records, exposes status and logs            | None          |
+| Job API      | Accepts submissions, writes job records, exposes status and logs, serves the status page | None |
 | Dispatcher   | Claims queued jobs, clones workers through the Proxmox API                  | Proxmox token |
 | Reaper       | Destroys expired and orphaned virtual machines                              | Proxmox token |
 | Bot          | Telegram client over long polling                                           | None          |
-| Status page  | Read-only view of jobs                                                      | None          |
 | Postgres     | Job records, the queue                                                      | —             |
 | MinIO        | Logs and build artifacts                                                    | —             |
 | Worker agent | Runs **inside** the ephemeral machine; clones, builds, runs, streams output | None          |
@@ -161,7 +160,7 @@ Each step is testable before the next one starts.
 3. **Reaper and teardown guarantees.** Kill the dispatcher mid-job deliberately
    and confirm nothing leaks.
 4. **Network isolation** — segment, egress allowlist, quotas.
-5. **Clients** — bot first, status page after.
+5. **Clients** — bot first, then the status page (static HTML served by the Job API).
 
 Step 3 is the one that decides whether this is a real system. Test it by breaking
 it on purpose.
@@ -261,7 +260,7 @@ An Ingress with no Ingress controller installed does nothing, silently.
 | Long polling       | The client opens an outbound connection and waits. Lets the bot receive messages with nothing connecting inward. |
 
 The bot needs neither a Service nor an Ingress, because nothing ever connects to
-it. The status page needs both. The bot also runs at exactly one replica: two
+it. The Job API, which serves the status page, needs both. The bot also runs at exactly one replica: two
 pods polling the same Telegram token both receive updates and reply twice.
 
 ### Configuration

@@ -9,5 +9,17 @@
   "7": "CLAUDE.md",
   "8": "architecture.md",
   "9": "runbook.md",
-  "10": "job-state.js"
+  "10": "job-state.js",
+  "11": "Job.ts",
+  "12": "commonInputTypes.ts",
+  "13": "prismaNamespaceBrowser.ts",
+  "14": "JobDelegate",
+  "15": "PrismaClient",
+  "16": "package.json",
+  "17": "Prisma__JobClient",
+  "18": "PrismaClientBaseOptions",
+  "19": "prisma.config.ts",
+  "20": "castor job-api",
+  "21": "@castor/core",
+  "22": "jobs.js"
 }

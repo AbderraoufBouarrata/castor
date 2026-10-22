@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "docs/threat-model.md": {
-    "mtime": 1792623052.1286294,
-    "ast_hash": "ba452d5af8cec33826c0b3e47c3c2c06",
+    "mtime": 1792627612.6882293,
+    "ast_hash": "ad9d4d162a66414918d9416706430d3f",
     "semantic_hash": ""
   },
   "apps/bot/Castor-ico.png": {
@@ -60,8 +60,123 @@
     "semantic_hash": ""
   },
   "packages/core/job-state.js": {
-    "mtime": 1792626240.844095,
-    "ast_hash": "98ec99bf4df0127ca3f9cffd4f1cbd41",
+    "mtime": 1792626970.3279092,
+    "ast_hash": "21aa70e3ddd7a51331555fc0a16db2e2",
+    "semantic_hash": ""
+  },
+  "apps/job-api/db.js": {
+    "mtime": 1792626715.7867584,
+    "ast_hash": "5d7db936ffde36d44b239174141a482f",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/browser.ts": {
+    "mtime": 1792627792.956614,
+    "ast_hash": "d56cc41c62a47bd989c10d9e39af6162",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/client.ts": {
+    "mtime": 1792627792.9565632,
+    "ast_hash": "e18ada6e78d20e11843b07910c46db86",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/commonInputTypes.ts": {
+    "mtime": 1792627792.9570973,
+    "ast_hash": "28b158c26a12d64cc5f09ec2f6c57a14",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/enums.ts": {
+    "mtime": 1792627792.9566095,
+    "ast_hash": "f88ec200f4fc12d64e1d7e7cac572e6d",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/internal/class.ts": {
+    "mtime": 1792627792.957445,
+    "ast_hash": "cb4c4b298898d2a43485ac1d1ce1114e",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/internal/prismaNamespace.ts": {
+    "mtime": 1792627792.9573102,
+    "ast_hash": "b233fa24ef8619218771a25041bc8c1e",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/internal/prismaNamespaceBrowser.ts": {
+    "mtime": 1792627792.9573183,
+    "ast_hash": "98611a75927092d710e248d3646cb292",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/models.ts": {
+    "mtime": 1792627792.9566236,
+    "ast_hash": "f9038289e43a075268990e5b7b4b0df2",
+    "semantic_hash": ""
+  },
+  "apps/job-api/generated/prisma/models/Job.ts": {
+    "mtime": 1792627792.957325,
+    "ast_hash": "d93bba63cf3e07c5f036028d246a01e4",
+    "semantic_hash": ""
+  },
+  "apps/job-api/package.json": {
+    "mtime": 1792627832.0197017,
+    "ast_hash": "282b42448e0a9e550c641fd28b7e940e",
+    "semantic_hash": ""
+  },
+  "apps/job-api/prisma.config.ts": {
+    "mtime": 1792626694.8962793,
+    "ast_hash": "56c9e1f31ca441956ae75c46317e79a8",
+    "semantic_hash": ""
+  },
+  "apps/job-api/prisma/migrations/20261021235145_init/migration.sql": {
+    "mtime": 1792626705.0365176,
+    "ast_hash": "31a26b6a7f3ec0df33943f11fa9934db",
+    "semantic_hash": ""
+  },
+  "apps/job-api/README.md": {
+    "mtime": 1792628068.9573216,
+    "ast_hash": "414387659c248c62857451af2530d680",
+    "semantic_hash": ""
+  },
+  "packages/core/README.md": {
+    "mtime": 1792626970.3311615,
+    "ast_hash": "b0e24c5af3bf26cd810b16ddd1e8e23c",
+    "semantic_hash": ""
+  },
+  "apps/job-api/prisma/migrations/20261022000223_init/migration.sql": {
+    "mtime": 1792627343.1969376,
+    "ast_hash": "a6c3d742e0024f5f2084cc54a6182232",
+    "semantic_hash": ""
+  },
+  "apps/job-api/app.js": {
+    "mtime": 1792628068.947747,
+    "ast_hash": "054384235f1b71afffb521f1149db290",
+    "semantic_hash": ""
+  },
+  "apps/job-api/controllers/jobs.js": {
+    "mtime": 1792628068.9511075,
+    "ast_hash": "4d4fdc37d70d2425f8668941bf0e0504",
+    "semantic_hash": ""
+  },
+  "apps/job-api/hooks/auth.js": {
+    "mtime": 1792627850.428387,
+    "ast_hash": "189e54d52c963e618781c0c72fd9c273",
+    "semantic_hash": ""
+  },
+  "apps/job-api/index.js": {
+    "mtime": 1792627798.480216,
+    "ast_hash": "a53b665b84bb044e2c25af568ae9e7ce",
+    "semantic_hash": ""
+  },
+  "apps/job-api/services/jobs.js": {
+    "mtime": 1792627822.1945336,
+    "ast_hash": "c3c4da754d27f16e467deaf7838c341b",
+    "semantic_hash": ""
+  },
+  "apps/job-api/test/jobs.test.js": {
+    "mtime": 1792628068.9539032,
+    "ast_hash": "20f5e57cdbac973ac53c94fb677e635a",
+    "semantic_hash": ""
+  },
+  "apps/job-api/dtos/jobs.dto.js": {
+    "mtime": 1792627962.0429943,
+    "ast_hash": "0522327d29bcaa0edc5e0c4aeaffc1e9",
     "semantic_hash": ""
   }
 }

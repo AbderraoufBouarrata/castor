@@ -1,7 +1,13 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// =============================================================================
+// Castor database schema
+//
+// One table: jobs. It is also the queue — the dispatcher claims the oldest
+// `queued` row with SELECT ... FOR UPDATE SKIP LOCKED.
+// =============================================================================
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// -----------------------------------------------------------------------------
+// Generator and datasource
+// -----------------------------------------------------------------------------
 
 generator client {
   provider = "prisma-client"
@@ -10,4 +16,62 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// -----------------------------------------------------------------------------
+// Job states
+// -----------------------------------------------------------------------------
+
+/// waiting -> queued -> building -> running -> done
+/// queued -> rejected
+/// building | running -> failed
+///
+/// A user has at most one job in queued/building/running. Their other jobs sit
+/// in `waiting` and enter the queue one at a time, oldest created_at first,
+/// when the active one ends.
+enum JobState {
+  waiting
+  queued
+  rejected
+  building
+  running
+  done
+  failed
+}
+
+// -----------------------------------------------------------------------------
+// Jobs
+// -----------------------------------------------------------------------------
+
+/// One submitted repository, from queue to teardown.
+/// Each state change stamps its own column, so metrics are column differences:
+/// queue wait = building_at - queued_at, build time = running_at - building_at.
+///
+/// One active job per user is enforced in the migration SQL (Prisma cannot
+/// express partial unique indexes):
+///   CREATE UNIQUE INDEX jobs_one_active_per_user ON jobs (telegram_user_id)
+///   WHERE state IN ('queued', 'building', 'running');
+model Job {
+  id             String    @id @default(uuid()) @db.Uuid
+  /// Telegram user id of the submitter (message.from.id). Exceeds 32 bits.
+  telegramUserId BigInt    @map("telegram_user_id")
+  /// Submitter's phone, e.g. +213555123456. Null unless the user shared it
+  /// (Telegram only sends it via a request_contact button).
+  phone          String?
+  repoUrl        String    @map("repo_url")
+  state          JobState  @default(waiting)
+  /// Why the job was rejected or failed.
+  error          String?
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  queuedAt       DateTime? @map("queued_at") @db.Timestamptz(3)
+  buildingAt     DateTime? @map("building_at") @db.Timestamptz(3)
+  runningAt      DateTime? @map("running_at") @db.Timestamptz(3)
+  /// Set on done, failed or rejected.
+  finishedAt     DateTime? @map("finished_at") @db.Timestamptz(3)
+
+  /// Queue scan: oldest queued job first.
+  @@index([state, createdAt])
+  /// Promotion: a user's oldest waiting job.
+  @@index([telegramUserId, state, createdAt])
+  @@map("jobs")
 }
