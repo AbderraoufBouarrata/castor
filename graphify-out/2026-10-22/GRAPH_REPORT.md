@@ -1,12 +1,12 @@
 # Graph Report - castor  (2026-10-22)
 
 ## Corpus Check
-- 35 files · ~92,914 words
+- 34 files · ~92,870 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 384 nodes · 399 edges · 23 communities (19 shown, 4 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.7)
+- 383 nodes · 401 edges · 23 communities (19 shown, 4 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.62)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
@@ -40,17 +40,17 @@
 3. `castor job-api` - 9 edges
 4. `Appendix: glossary` - 9 edges
 5. `Architecture` - 8 edges
-6. `scripts` - 6 edges
-7. `castor bot` - 5 edges
-8. `buildApp()` - 4 edges
-9. `present()` - 4 edges
-10. `Prisma__JobClient` - 4 edges
+6. `jobsController()` - 7 edges
+7. `scripts` - 6 edges
+8. `castor bot` - 5 edges
+9. `buildApp()` - 4 edges
+10. `present()` - 4 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `buildApp()` --indirect_call--> `jobRoutes()`  [INFERRED]
-  apps/job-api/app.js → apps/job-api/routes/jobs.js
-- `jobRoutes()` --indirect_call--> `requireToken()`  [INFERRED]
-  apps/job-api/routes/jobs.js → apps/job-api/hooks/auth.js
+- `buildApp()` --indirect_call--> `jobsController()`  [INFERRED]
+  apps/job-api/app.js → apps/job-api/controllers/jobs.js
+- `jobsController()` --indirect_call--> `requireToken()`  [INFERRED]
+  apps/job-api/controllers/jobs.js → apps/job-api/hooks/auth.js
 
 ## Import Cycles
 - 3-file cycle: `apps/job-api/generated/prisma/commonInputTypes.ts -> apps/job-api/generated/prisma/internal/prismaNamespace.ts -> apps/job-api/generated/prisma/models.ts -> apps/job-api/generated/prisma/commonInputTypes.ts`
@@ -111,8 +111,8 @@ Cohesion: 0.40
 Nodes (4): @castor/core, Commands, Contents, Usage
 
 ### Community 22 - "jobs.js"
-Cohesion: 0.08
-Nodes (24): buildApp(), create(), get(), list(), present(), db, createJobDto, getJobDto (+16 more)
+Cohesion: 0.09
+Nodes (24): buildApp(), create(), get(), jobsController(), list(), present(), db, createJobDto (+16 more)
 
 ## Knowledge Gaps
 - **280 isolated node(s):** `photo`, `name`, `private`, `type`, `start` (+275 more)
@@ -123,7 +123,7 @@ Nodes (24): buildApp(), create(), get(), list(), present(), db, createJobDto, ge
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `JobDelegate` connect `JobDelegate` to `Job.ts`?**
-  _High betweenness centrality (0.070) - this node is a cross-community bridge._
+  _High betweenness centrality (0.071) - this node is a cross-community bridge._
 - **Why does `@prisma/client` connect `package.json` to `jobs.js`?**
   _High betweenness centrality (0.069) - this node is a cross-community bridge._
 - **What connects `photo`, `name`, `private` to the rest of the system?**

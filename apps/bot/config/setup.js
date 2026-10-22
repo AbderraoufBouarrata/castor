@@ -1,4 +1,4 @@
-// One-time bot setup: name, descriptions, avatar. Safe to re-run.
+// One-time bot setup: name, descriptions, avatar, command menu. Safe to re-run.
 import { readFile } from 'node:fs/promises';
 
 const NAME = 'Castor';
@@ -28,6 +28,13 @@ const photo = form({ photo: JSON.stringify({ type: 'static', photo: 'attach://av
 const jpg = await readFile(new URL('../castor.jpg', import.meta.url));
 photo.append('avatar', new Blob([jpg], { type: 'image/jpeg' }), 'castor.jpg');
 await call('setMyProfilePhoto', photo);
+
+await call('setMyCommands', form({
+  commands: JSON.stringify([
+    { command: 'build', description: 'Build a GitHub repo: /build <url>' },
+    { command: 'jobs', description: 'Your recent jobs' },
+  ]),
+}));
 
 // getUpdates returns 409 while a webhook is registered.
 await call('deleteWebhook');

@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "apps/job-api/README.md": {
-    "mtime": 1792627962.0453763,
-    "ast_hash": "789150da4d6b189372ebf2824d0bc7e7",
+    "mtime": 1792628068.9573216,
+    "ast_hash": "414387659c248c62857451af2530d680",
     "semantic_hash": ""
   },
   "packages/core/README.md": {
@@ -145,13 +145,13 @@
     "semantic_hash": ""
   },
   "apps/job-api/app.js": {
-    "mtime": 1792627801.0958548,
-    "ast_hash": "9f6b383b4263b6676e35e6b10c2472ed",
+    "mtime": 1792628068.947747,
+    "ast_hash": "054384235f1b71afffb521f1149db290",
     "semantic_hash": ""
   },
   "apps/job-api/controllers/jobs.js": {
-    "mtime": 1792627816.6454906,
-    "ast_hash": "e4d2472193fa713ca938e8cdb39efcb5",
+    "mtime": 1792628068.9511075,
+    "ast_hash": "4d4fdc37d70d2425f8668941bf0e0504",
     "semantic_hash": ""
   },
   "apps/job-api/hooks/auth.js": {
@@ -164,19 +164,14 @@
     "ast_hash": "a53b665b84bb044e2c25af568ae9e7ce",
     "semantic_hash": ""
   },
-  "apps/job-api/routes/jobs.js": {
-    "mtime": 1792627962.0474334,
-    "ast_hash": "37ff6e29fcbc9365b10449ed0d5dca25",
-    "semantic_hash": ""
-  },
   "apps/job-api/services/jobs.js": {
     "mtime": 1792627822.1945336,
     "ast_hash": "c3c4da754d27f16e467deaf7838c341b",
     "semantic_hash": ""
   },
   "apps/job-api/test/jobs.test.js": {
-    "mtime": 1792627850.4489734,
-    "ast_hash": "95b67f441e03dda774db9e9040aaa71e",
+    "mtime": 1792628068.9539032,
+    "ast_hash": "20f5e57cdbac973ac53c94fb677e635a",
     "semantic_hash": ""
   },
   "apps/job-api/dtos/jobs.dto.js": {
