@@ -4,6 +4,76 @@
   "graph": {},
   "nodes": [
     {
+      "label": "commands.js",
+      "file_type": "code",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_bot_commands",
+      "community": 5,
+      "norm_label": "commands.js"
+    },
+    {
+      "label": "STATE_EMOJI",
+      "file_type": "code",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "apps_bot_commands_state_emoji",
+      "community": 5,
+      "norm_label": "state_emoji"
+    },
+    {
+      "label": "build()",
+      "file_type": "code",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "apps_bot_commands_build",
+      "community": 5,
+      "norm_label": "build()"
+    },
+    {
+      "label": "jobs()",
+      "file_type": "code",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "apps_bot_commands_jobs",
+      "community": 5,
+      "norm_label": "jobs()"
+    },
+    {
+      "label": "help()",
+      "file_type": "code",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L58",
+      "_origin": "ast",
+      "id": "apps_bot_commands_help",
+      "community": 5,
+      "norm_label": "help()"
+    },
+    {
+      "label": "COMMANDS",
+      "file_type": "code",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L64",
+      "_origin": "ast",
+      "id": "apps_bot_commands_commands",
+      "community": 5,
+      "norm_label": "commands"
+    },
+    {
+      "label": "handle()",
+      "file_type": "code",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "apps_bot_commands_handle",
+      "community": 5,
+      "norm_label": "handle()"
+    },
+    {
       "label": "setup.js",
       "file_type": "code",
       "source_file": "apps/bot/config/setup.js",
@@ -44,6 +114,46 @@
       "norm_label": "photo"
     },
     {
+      "label": "helpers.js",
+      "file_type": "code",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_bot_helpers",
+      "community": 5,
+      "norm_label": "helpers.js"
+    },
+    {
+      "label": "telegram()",
+      "file_type": "code",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "apps_bot_helpers_telegram",
+      "community": 5,
+      "norm_label": "telegram()"
+    },
+    {
+      "label": "reply()",
+      "file_type": "code",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "apps_bot_helpers_reply",
+      "community": 5,
+      "norm_label": "reply()"
+    },
+    {
+      "label": "api()",
+      "file_type": "code",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "apps_bot_helpers_api",
+      "community": 5,
+      "norm_label": "api()"
+    },
+    {
       "label": "index.js",
       "file_type": "code",
       "source_file": "apps/bot/index.js",
@@ -52,16 +162,6 @@
       "id": "apps_bot_index",
       "community": 5,
       "norm_label": "index.js"
-    },
-    {
-      "label": "call()",
-      "file_type": "code",
-      "source_file": "apps/bot/index.js",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "apps_bot_index_call",
-      "community": 5,
-      "norm_label": "call()"
     },
     {
       "label": "package.json",
@@ -3384,10 +3484,40 @@
       "norm_label": "castor bot"
     },
     {
-      "label": "Requirements",
+      "label": "How it fits",
       "file_type": "document",
       "source_file": "apps/bot/README.md",
       "source_location": "L7",
+      "_origin": "ast",
+      "id": "apps_bot_readme_how_it_fits",
+      "community": 3,
+      "norm_label": "how it fits"
+    },
+    {
+      "label": "Layout",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "apps_bot_readme_layout",
+      "community": 3,
+      "norm_label": "layout"
+    },
+    {
+      "label": "Commands",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "apps_bot_readme_commands",
+      "community": 3,
+      "norm_label": "commands"
+    },
+    {
+      "label": "Requirements",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "apps_bot_readme_requirements",
       "community": 3,
@@ -3397,31 +3527,41 @@
       "label": "First run",
       "file_type": "document",
       "source_file": "apps/bot/README.md",
-      "source_location": "L12",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "apps_bot_readme_first_run",
       "community": 3,
       "norm_label": "first run"
     },
     {
+      "label": "Scripts",
+      "file_type": "document",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "apps_bot_readme_scripts",
+      "community": 3,
+      "norm_label": "scripts"
+    },
+    {
       "label": "Useful checks",
       "file_type": "document",
       "source_file": "apps/bot/README.md",
-      "source_location": "L36",
+      "source_location": "L84",
       "_origin": "ast",
       "id": "apps_bot_readme_useful_checks",
       "community": 3,
       "norm_label": "useful checks"
     },
     {
-      "label": "Changing name, description or avatar",
+      "label": "Changing name, description, avatar or command menu",
       "file_type": "document",
       "source_file": "apps/bot/README.md",
-      "source_location": "L45",
+      "source_location": "L106",
       "_origin": "ast",
-      "id": "apps_bot_readme_changing_name_description_or_avatar",
+      "id": "apps_bot_readme_changing_name_description_avatar_or_command_menu",
       "community": 3,
-      "norm_label": "changing name, description or avatar"
+      "norm_label": "changing name, description, avatar or command menu"
     },
     {
       "label": "README.md",
@@ -3836,6 +3976,190 @@
   ],
   "links": [
     {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "apps_bot_commands",
+      "target": "apps_bot_commands_build",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "apps_bot_commands",
+      "target": "apps_bot_commands_commands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "apps_bot_commands",
+      "target": "apps_bot_commands_handle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "apps_bot_commands",
+      "target": "apps_bot_commands_help",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "context": "collection",
+      "source": "apps_bot_commands",
+      "target": "apps_bot_commands_jobs",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "apps_bot_commands",
+      "target": "apps_bot_commands_state_emoji",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_bot_commands",
+      "target": "apps_bot_helpers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_bot_commands",
+      "target": "apps_bot_helpers_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_bot_commands",
+      "target": "apps_bot_helpers_reply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/index.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_bot_index",
+      "target": "apps_bot_commands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "apps_bot_commands_build",
+      "target": "apps_bot_helpers_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "apps_bot_commands_build",
+      "target": "apps_bot_helpers_reply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "apps_bot_commands_jobs",
+      "target": "apps_bot_helpers_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "apps_bot_commands_jobs",
+      "target": "apps_bot_helpers_reply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "apps_bot_commands_help",
+      "target": "apps_bot_helpers_reply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/bot/commands.js",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "apps_bot_commands_handle",
+      "target": "apps_bot_helpers_reply"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/index.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_bot_index",
+      "target": "apps_bot_commands_handle",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/bot/config/setup.js",
@@ -3868,11 +4192,64 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "apps_bot_helpers",
+      "target": "apps_bot_helpers_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "apps_bot_helpers",
+      "target": "apps_bot_helpers_reply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "apps_bot_helpers",
+      "target": "apps_bot_helpers_telegram",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/bot/index.js",
-      "source_location": "L6",
+      "source_location": "L9",
       "weight": 1.0,
       "source": "apps_bot_index",
-      "target": "apps_bot_index_call",
+      "target": "apps_bot_helpers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/helpers.js",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "apps_bot_helpers_reply",
+      "target": "apps_bot_helpers_telegram",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/index.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_bot_index",
+      "target": "apps_bot_helpers_telegram",
       "confidence_score": 1.0
     },
     {
@@ -7520,17 +7897,27 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/bot/README.md",
-      "source_location": "L45",
+      "source_location": "L106",
       "weight": 1.0,
       "source": "apps_bot_readme_castor_bot",
-      "target": "apps_bot_readme_changing_name_description_or_avatar",
+      "target": "apps_bot_readme_changing_name_description_avatar_or_command_menu",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/bot/README.md",
-      "source_location": "L12",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_commands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L41",
       "weight": 1.0,
       "source": "apps_bot_readme_castor_bot",
       "target": "apps_bot_readme_first_run",
@@ -7543,6 +7930,26 @@
       "source_location": "L7",
       "weight": 1.0,
       "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_how_it_fits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
       "target": "apps_bot_readme_requirements",
       "confidence_score": 1.0
     },
@@ -7550,7 +7957,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/bot/README.md",
-      "source_location": "L36",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "apps_bot_readme_castor_bot",
+      "target": "apps_bot_readme_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/bot/README.md",
+      "source_location": "L84",
       "weight": 1.0,
       "source": "apps_bot_readme_castor_bot",
       "target": "apps_bot_readme_useful_checks",
@@ -7898,5 +8315,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "4d76283345a195e55ddfa84cbf3365544ee7957a"
+  "built_at_commit": "2fccdb58c97fd50bbc38e4913a1083d559e36a7c"
 }

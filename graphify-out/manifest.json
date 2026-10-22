@@ -10,8 +10,8 @@
     "semantic_hash": ""
   },
   "apps/bot/index.js": {
-    "mtime": 1792671411.339623,
-    "ast_hash": "a2a866af6b89bdd4c47a47b22cfc294d",
+    "mtime": 1792672153.3346548,
+    "ast_hash": "0d9ec27e72824f68472249108b215c12",
     "semantic_hash": ""
   },
   "apps/bot/package.json": {
@@ -25,8 +25,8 @@
     "semantic_hash": ""
   },
   "apps/bot/README.md": {
-    "mtime": 1792671442.8003302,
-    "ast_hash": "7342145420c31a7d9941bc1e77b80903",
+    "mtime": 1792672153.353633,
+    "ast_hash": "2f2e24cb66d5409f4b644f944f252527",
     "semantic_hash": ""
   },
   "docs/architecture.md": {
@@ -177,6 +177,36 @@
   "apps/job-api/dtos/jobs.dto.js": {
     "mtime": 1792627962.0429943,
     "ast_hash": "0522327d29bcaa0edc5e0c4aeaffc1e9",
+    "semantic_hash": ""
+  },
+  "apps/bot/commands/build.js": {
+    "mtime": 1792672153.329208,
+    "ast_hash": "8f2bc631e74974173787a0c09ee51611",
+    "semantic_hash": ""
+  },
+  "apps/bot/commands/help.js": {
+    "mtime": 1792672153.3329298,
+    "ast_hash": "89fb8aa421a417d597f04ff0a1f9039c",
+    "semantic_hash": ""
+  },
+  "apps/bot/commands/jobs.js": {
+    "mtime": 1792672153.3311062,
+    "ast_hash": "48c257e1f1ca10f320dff04d3a64184b",
+    "semantic_hash": ""
+  },
+  "apps/bot/helpers/api.js": {
+    "mtime": 1792672153.3248236,
+    "ast_hash": "93fb56f795f95f24e44dc752f50c6dc4",
+    "semantic_hash": ""
+  },
+  "apps/bot/helpers/format.js": {
+    "mtime": 1792672153.3270051,
+    "ast_hash": "a44b8bbf985aeaa2ea5de45d13cc7b92",
+    "semantic_hash": ""
+  },
+  "apps/bot/helpers/telegram.js": {
+    "mtime": 1792672153.3222187,
+    "ast_hash": "eea7fc8676f9174115ac78a56a28bbaa",
     "semantic_hash": ""
   }
 }

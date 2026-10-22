@@ -12,6 +12,19 @@ user ──Telegram──> bot ──POST /api/v1/jobs (Bearer API_TOKEN)──>
 
 The user never sees `API_TOKEN`. It is a shared secret between the bot and job-api, both servers you run.
 
+## Layout
+
+| Path | What |
+|---|---|
+| `index.js` | Bot start: env config, command router, poll loop |
+| `commands/<name>.js` | One file per command (`build`, `jobs`, `help`) |
+| `helpers/telegram.js` | Telegram Bot API client and `reply()` |
+| `helpers/api.js` | Job API client (sends `API_TOKEN`) |
+| `helpers/format.js` | Shared reply text and job formatting (state emojis) |
+| `config/setup.js` | One-time bot profile and command menu (`npm run setup`) |
+
+Adding a command: create `commands/<name>.js`, add it to `COMMANDS` in `index.js`, add it to the `setMyCommands` list in `config/setup.js`, then run `npm run setup`.
+
 ## Commands
 
 | Command | What it does |
