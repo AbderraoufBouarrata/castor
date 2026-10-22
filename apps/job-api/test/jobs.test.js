@@ -47,4 +47,47 @@ test('GET /api/v1/jobs/:id with non-uuid → 400', async () => {
   assert.equal(res.statusCode, 400);
 });
 
+// -----------------------------------------------------------------------------
+// Dockerfile check (GitHub mocked; these fail before the database is touched)
+// -----------------------------------------------------------------------------
+
+const realFetch = globalThis.fetch;
+const mockGitHub = (impl) => { globalThis.fetch = impl; };
+test.afterEach(() => { globalThis.fetch = realFetch; });
+
+/** Fake GitHub: `pages` maps URL → status; anything else 404. Records requested URLs. */
+const fakeGitHub = (pages) => {
+  const asked = [];
+  mockGitHub(async (url) => { asked.push(url); return { status: pages[url] ?? 404 }; });
+  return asked;
+};
+
+test('POST /api/v1/jobs for public repo without root Dockerfile → 422 NO_DOCKERFILE', async () => {
+  const asked = fakeGitHub({ 'https://github.com/x/y': 200 });
+  const res = await app.inject({ method: 'POST', url: '/api/v1/jobs', payload: { ...body, repoUrl: 'https://github.com/x/y.git' }, headers: auth });
+  assert.equal(res.statusCode, 422);
+  assert.equal(res.json().code, 'NO_DOCKERFILE');
+  assert.deepEqual(asked, ['https://raw.githubusercontent.com/x/y/HEAD/Dockerfile', 'https://github.com/x/y']);
+});
+
+test('POST /api/v1/jobs for private or missing repo → 422 REPO_NOT_FOUND', async () => {
+  fakeGitHub({});
+  const res = await app.inject({ method: 'POST', url: '/api/v1/jobs', payload: body, headers: auth });
+  assert.equal(res.statusCode, 422);
+  assert.equal(res.json().code, 'REPO_NOT_FOUND');
+});
+
+test('POST /api/v1/jobs when GitHub is unreachable → 502', async () => {
+  mockGitHub(async () => { throw new TypeError('fetch failed'); });
+  const res = await app.inject({ method: 'POST', url: '/api/v1/jobs', payload: body, headers: auth });
+  assert.equal(res.statusCode, 502);
+  assert.equal(res.json().code, 'GITHUB_UNREACHABLE');
+});
+
+test('POST /api/v1/jobs when GitHub rate-limits → 502', async () => {
+  mockGitHub(async () => ({ status: 429 }));
+  const res = await app.inject({ method: 'POST', url: '/api/v1/jobs', payload: body, headers: auth });
+  assert.equal(res.statusCode, 502);
+});
+
 test.after(() => app.close());

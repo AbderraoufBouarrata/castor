@@ -1,16 +1,16 @@
 # Graph Report - castor  (2026-10-22)
 
 ## Corpus Check
-- 40 files · ~93,868 words
+- 40 files · ~94,453 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 402 nodes · 444 edges · 23 communities (19 shown, 4 thin omitted)
+- 410 nodes · 462 edges · 24 communities (20 shown, 4 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.65)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2fccdb58`
+- Built from commit: `822bf176`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,6 +33,7 @@
 - PrismaClientBaseOptions
 - castor job-api
 - @castor/core
+- jobs.js
 - jobs.js
 
 ## God Nodes (most connected - your core abstractions)
@@ -63,7 +64,7 @@
 - 3-file cycle: `apps/job-api/generated/prisma/commonInputTypes.ts -> apps/job-api/generated/prisma/internal/prismaNamespace.ts -> apps/job-api/generated/prisma/models.ts -> apps/job-api/generated/prisma/commonInputTypes.ts`
 - 3-file cycle: `apps/job-api/generated/prisma/internal/prismaNamespace.ts -> apps/job-api/generated/prisma/models.ts -> apps/job-api/generated/prisma/models/Job.ts -> apps/job-api/generated/prisma/internal/prismaNamespace.ts`
 
-## Communities (23 total, 4 thin omitted)
+## Communities (24 total, 4 thin omitted)
 
 ### Community 0 - "package.json"
 Cohesion: 0.22
@@ -123,7 +124,11 @@ Nodes (4): @castor/core, Commands, Contents, Usage
 
 ### Community 22 - "jobs.js"
 Cohesion: 0.09
-Nodes (24): buildApp(), create(), get(), jobsController(), list(), present(), db, createJobDto (+16 more)
+Nodes (26): buildApp(), create(), get(), jobsController(), list(), present(), db, createJobDto (+18 more)
+
+### Community 23 - "jobs.js"
+Cohesion: 0.40
+Nodes (7): assertBuildableRepo(), exists(), hasRootDockerfile(), httpError(), isPublicRepo(), parseRepoUrl(), submitJob()
 
 ## Knowledge Gaps
 - **286 isolated node(s):** `photo`, `STATE_EMOJI`, `COMMANDS`, `name`, `private` (+281 more)
@@ -134,7 +139,7 @@ Nodes (24): buildApp(), create(), get(), jobsController(), list(), present(), db
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `JobDelegate` connect `JobDelegate` to `Job.ts`?**
-  _High betweenness centrality (0.064) - this node is a cross-community bridge._
+  _High betweenness centrality (0.063) - this node is a cross-community bridge._
 - **Why does `@prisma/client` connect `package.json` to `jobs.js`?**
   _High betweenness centrality (0.062) - this node is a cross-community bridge._
 - **What connects `photo`, `STATE_EMOJI`, `COMMANDS` to the rest of the system?**

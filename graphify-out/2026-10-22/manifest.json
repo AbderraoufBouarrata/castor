@@ -5,13 +5,13 @@
     "semantic_hash": ""
   },
   "apps/bot/config/setup.js": {
-    "mtime": 1792671418.306987,
-    "ast_hash": "202241e8c3feb2e837a55158787698dc",
+    "mtime": 1792672577.236572,
+    "ast_hash": "03a143535573cafff80d9943a24aaa05",
     "semantic_hash": ""
   },
   "apps/bot/index.js": {
-    "mtime": 1792671984.6737518,
-    "ast_hash": "8993dd849bd0dcda06284fb85d620a6d",
+    "mtime": 1792672153.3346548,
+    "ast_hash": "0d9ec27e72824f68472249108b215c12",
     "semantic_hash": ""
   },
   "apps/bot/package.json": {
@@ -25,8 +25,8 @@
     "semantic_hash": ""
   },
   "apps/bot/README.md": {
-    "mtime": 1792671984.6942823,
-    "ast_hash": "861bde706987d128db981ec36bfaf723",
+    "mtime": 1792672153.353633,
+    "ast_hash": "2f2e24cb66d5409f4b644f944f252527",
     "semantic_hash": ""
   },
   "docs/architecture.md": {
@@ -70,48 +70,48 @@
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/browser.ts": {
-    "mtime": 1792627792.956614,
-    "ast_hash": "d56cc41c62a47bd989c10d9e39af6162",
+    "mtime": 1792672827.4135885,
+    "ast_hash": "5875c45c2944dc1d2bc20b0ff46da156",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/client.ts": {
-    "mtime": 1792627792.9565632,
-    "ast_hash": "e18ada6e78d20e11843b07910c46db86",
+    "mtime": 1792672827.4135559,
+    "ast_hash": "104e810e7bec892de9c4d8f49b6f1795",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/commonInputTypes.ts": {
-    "mtime": 1792627792.9570973,
+    "mtime": 1792672827.4137187,
     "ast_hash": "28b158c26a12d64cc5f09ec2f6c57a14",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/enums.ts": {
-    "mtime": 1792627792.9566095,
+    "mtime": 1792672827.4137106,
     "ast_hash": "f88ec200f4fc12d64e1d7e7cac572e6d",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/internal/class.ts": {
-    "mtime": 1792627792.957445,
-    "ast_hash": "cb4c4b298898d2a43485ac1d1ce1114e",
+    "mtime": 1792672827.4142153,
+    "ast_hash": "190f66ffe46b51d65cbc277bea2e4690",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/internal/prismaNamespace.ts": {
-    "mtime": 1792627792.9573102,
+    "mtime": 1792672827.4141393,
     "ast_hash": "b233fa24ef8619218771a25041bc8c1e",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/internal/prismaNamespaceBrowser.ts": {
-    "mtime": 1792627792.9573183,
+    "mtime": 1792672827.4141204,
     "ast_hash": "98611a75927092d710e248d3646cb292",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/models.ts": {
-    "mtime": 1792627792.9566236,
+    "mtime": 1792672827.4136822,
     "ast_hash": "f9038289e43a075268990e5b7b4b0df2",
     "semantic_hash": ""
   },
   "apps/job-api/generated/prisma/models/Job.ts": {
-    "mtime": 1792627792.957325,
-    "ast_hash": "d93bba63cf3e07c5f036028d246a01e4",
+    "mtime": 1792672827.4141386,
+    "ast_hash": "2d6c9e49ed255c5e1ea9d4dba2467c0c",
     "semantic_hash": ""
   },
   "apps/job-api/package.json": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "apps/job-api/README.md": {
-    "mtime": 1792628068.9573216,
-    "ast_hash": "414387659c248c62857451af2530d680",
+    "mtime": 1792673222.3433664,
+    "ast_hash": "9d61a512597885ac9513bd3732a43533",
     "semantic_hash": ""
   },
   "packages/core/README.md": {
@@ -165,13 +165,13 @@
     "semantic_hash": ""
   },
   "apps/job-api/services/jobs.js": {
-    "mtime": 1792627822.1945336,
-    "ast_hash": "c3c4da754d27f16e467deaf7838c341b",
+    "mtime": 1792673196.0371184,
+    "ast_hash": "37b14cc556b5074dea0c4c53f2818a29",
     "semantic_hash": ""
   },
   "apps/job-api/test/jobs.test.js": {
-    "mtime": 1792628076.3074052,
-    "ast_hash": "b1db558855d916859f27096373c64416",
+    "mtime": 1792673211.7322283,
+    "ast_hash": "18ee585efbcfc876645c3878eb8e4007",
     "semantic_hash": ""
   },
   "apps/job-api/dtos/jobs.dto.js": {
@@ -179,14 +179,34 @@
     "ast_hash": "0522327d29bcaa0edc5e0c4aeaffc1e9",
     "semantic_hash": ""
   },
-  "apps/bot/commands.js": {
-    "mtime": 1792671984.6696992,
-    "ast_hash": "35ae67b0b968f3623fbbc6954477badb",
+  "apps/bot/commands/build.js": {
+    "mtime": 1792673222.3436127,
+    "ast_hash": "f112699873ce3e4e3b21430d8c708116",
     "semantic_hash": ""
   },
-  "apps/bot/helpers.js": {
-    "mtime": 1792671984.6670628,
-    "ast_hash": "8870a9ab140fcfcfd69efb1e30b8ffa0",
+  "apps/bot/commands/help.js": {
+    "mtime": 1792672153.3329298,
+    "ast_hash": "89fb8aa421a417d597f04ff0a1f9039c",
+    "semantic_hash": ""
+  },
+  "apps/bot/commands/jobs.js": {
+    "mtime": 1792672153.3311062,
+    "ast_hash": "48c257e1f1ca10f320dff04d3a64184b",
+    "semantic_hash": ""
+  },
+  "apps/bot/helpers/api.js": {
+    "mtime": 1792672153.3248236,
+    "ast_hash": "93fb56f795f95f24e44dc752f50c6dc4",
+    "semantic_hash": ""
+  },
+  "apps/bot/helpers/format.js": {
+    "mtime": 1792672153.3270051,
+    "ast_hash": "a44b8bbf985aeaa2ea5de45d13cc7b92",
+    "semantic_hash": ""
+  },
+  "apps/bot/helpers/telegram.js": {
+    "mtime": 1792672153.3222187,
+    "ast_hash": "eea7fc8676f9174115ac78a56a28bbaa",
     "semantic_hash": ""
   }
 }

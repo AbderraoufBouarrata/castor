@@ -72,7 +72,7 @@ npm run dev
 |---|---|
 | `npm start` | Run the API |
 | `npm run dev` | Run the API and restart on file changes |
-| `npm test` | Run auth and validation tests (no database needed) |
+| `npm test` | Run auth, validation and Dockerfile-check tests (no database or network needed) |
 | `npm run db:migrate` | Create a migration from schema changes and apply it (dev only) |
 | `npm run db:generate` | Regenerate the client in `generated/prisma/` |
 | `npx prisma migrate deploy` | Apply committed migrations without creating new ones (production) |
@@ -87,7 +87,7 @@ Prisma 7 does not regenerate the client after `migrate dev`. Always run `npm run
 
 | Method | Path | Auth | What |
 |---|---|---|---|
-| `POST` | `/api/v1/jobs` | Bearer token | Submit a job. Returns 201 with the job, state `queued` or `waiting`. |
+| `POST` | `/api/v1/jobs` | Bearer token | Submit a job. The repo must have a `Dockerfile` at its root. Returns 201 with the job, state `queued` or `waiting`. |
 | `GET` | `/api/v1/jobs` | none | List jobs, newest first. Query: `telegramUserId`, `state`, `limit` (1-100, default 50). |
 | `GET` | `/api/v1/jobs/:id` | none | One job, or 404. |
 
@@ -101,7 +101,18 @@ Prisma 7 does not regenerate the client after `migrate dev`. Always run `npm run
 
 Responses never include `phone`, because `GET /api/v1/jobs` is public.
 
-Errors: `401` bad or missing token, `400` invalid input, `404` unknown job.
+Errors are JSON `{ statusCode, code, error, message }`. Clients should branch on `code`:
+
+| Status | `code` | When |
+|---|---|---|
+| `400` | `FST_ERR_VALIDATION` | Invalid input |
+| `401` | — | Missing or wrong token |
+| `404` | — | Unknown job |
+| `422` | `REPO_NOT_FOUND` | Repo is private or does not exist (GitHub answers 404 for both without a token) |
+| `422` | `NO_DOCKERFILE` | Repo is public but has no `Dockerfile` at its root |
+| `502` | `GITHUB_UNREACHABLE` | GitHub down, timed out or rate-limited |
+
+The repo check (`assertBuildableRepo` in `services/jobs.js`) sends `HEAD https://raw.githubusercontent.com/<owner>/<repo>/HEAD/Dockerfile` (default branch, no token needed). Only if that is 404 does it send `HEAD https://github.com/<owner>/<repo>` to tell a missing Dockerfile from a private or missing repo. It checks the file exists, not that it builds. The name must be exactly `Dockerfile`.
 
 Examples:
 

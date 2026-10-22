@@ -21,5 +21,6 @@
   "19": "prisma.config.ts",
   "20": "castor job-api",
   "21": "@castor/core",
-  "22": "jobs.js"
+  "22": "jobs.js",
+  "23": "jobs.js"
 }
