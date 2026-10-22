@@ -42,6 +42,11 @@ test('GET /api/v1/jobs with bad state → 400', async () => {
   assert.equal(res.statusCode, 400);
 });
 
+test('GET /api/v1/jobs/changes without since → 400', async () => {
+  const res = await app.inject({ method: 'GET', url: '/api/v1/jobs/changes' });
+  assert.equal(res.statusCode, 400);
+});
+
 test('GET /api/v1/jobs/:id with non-uuid → 400', async () => {
   const res = await app.inject({ method: 'GET', url: '/api/v1/jobs/123' });
   assert.equal(res.statusCode, 400);

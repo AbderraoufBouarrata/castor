@@ -1,0 +1,22 @@
+{
+  "name": "@castor/db",
+  "private": true,
+  "type": "module",
+  "exports": "./index.js",
+  "scripts": {
+    "migrate": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "generate": "prisma generate",
+    "studio": "prisma studio"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/client": "^7.10.1"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.1"
+  }
+}

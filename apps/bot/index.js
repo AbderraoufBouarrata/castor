@@ -1,8 +1,8 @@
 // =============================================================================
 // Castor bot
 //
-// Config, command routing and the poll loop. Nothing connects to the bot; it
-// only calls out to Telegram and the Job API.
+// Config, command routing, the Telegram poll loop and the job watcher.
+// Nothing connects to the bot; it only calls out to Telegram and the Job API.
 //
 // To add a command: create commands/<name>.js, add it to COMMANDS below, and
 // add it to the setMyCommands list in config/setup.js.
@@ -13,6 +13,7 @@ import { telegram, reply } from './helpers/telegram.js';
 import { build } from './commands/build.js';
 import { jobs } from './commands/jobs.js';
 import { help } from './commands/help.js';
+import { watchJobs } from './watcher.js';
 
 // -----------------------------------------------------------------------------
 // Config
@@ -46,6 +47,9 @@ async function handle(msg) {
 
 // getUpdates holds the connection open until an update arrives or the timeout
 // passes. Each update is handled once: offset moves past it before handling.
+// Job watcher runs alongside the poll loop and messages users on state changes.
+watchJobs();
+
 let offset = 0;
 console.log('castor bot polling');
 for (;;) {

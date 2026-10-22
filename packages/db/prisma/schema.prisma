@@ -60,10 +60,14 @@ model Job {
   runningAt      DateTime? @map("running_at") @db.Timestamptz(3)
   /// Set on done, failed or rejected.
   finishedAt     DateTime? @map("finished_at") @db.Timestamptz(3)
+  /// Bumped on every write. Clients poll for changes with updatedAt > cursor.
+  updatedAt      DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
 
-  /// Queue scan: oldest queued job first.
-  @@index([state, createdAt])
+  /// Queue scan: queued jobs in the order they entered the queue.
+  @@index([state, queuedAt])
   /// Promotion: a user's oldest waiting job.
   @@index([telegramUserId, state, createdAt])
+  /// Change feed: jobs updated after a cursor.
+  @@index([updatedAt])
   @@map("jobs")
 }

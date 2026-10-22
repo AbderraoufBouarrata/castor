@@ -5,7 +5,7 @@
 // =============================================================================
 
 import Fastify from 'fastify';
-import { db } from './db.js';
+import { db } from '@castor/db';
 import { jobsController } from './controllers/jobs.js';
 
 /** Build a configured app. `opts` are passed to Fastify (e.g. { logger: false } in tests). */

@@ -5,19 +5,13 @@
   "scripts": {
     "start": "node --env-file-if-exists=.env index.js",
     "dev": "node --watch --env-file-if-exists=.env index.js",
-    "test": "node --env-file-if-exists=.env --test",
-    "db:migrate": "prisma migrate dev",
-    "db:generate": "prisma generate"
+    "test": "node --env-file-if-exists=.env --test"
   },
   "engines": {
     "node": ">=22.18"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.10.1",
-    "@prisma/client": "^7.10.1",
+    "@castor/db": "*",
     "fastify": "^5.12.7"
-  },
-  "devDependencies": {
-    "prisma": "^7.10.1"
   }
 }

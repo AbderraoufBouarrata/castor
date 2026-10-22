@@ -5,7 +5,7 @@
 // 400 and never reaches the database.
 // =============================================================================
 
-import { JobState } from '../db.js';
+import { JobState } from '@castor/db';
 
 // -----------------------------------------------------------------------------
 // Shared fields
@@ -42,6 +42,19 @@ export const listJobsDto = {
       telegramUserId,
       state,
       limit: { type: 'integer', minimum: 1, maximum: 100, default: 50 },
+    },
+  },
+};
+
+export const jobChangesDto = {
+  querystring: {
+    type: 'object',
+    required: ['since'],
+    additionalProperties: false,
+    properties: {
+      /** Cursor: return jobs updated strictly after this instant (ISO 8601). */
+      since: { type: 'string', format: 'date-time' },
+      limit: { type: 'integer', minimum: 1, maximum: 100, default: 100 },
     },
   },
 };

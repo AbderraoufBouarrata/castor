@@ -1,0 +1,14 @@
+{
+  "name": "castor",
+  "private": true,
+  "workspaces": [
+    "apps/bot",
+    "apps/job-api",
+    "apps/dispatcher",
+    "packages/core",
+    "packages/db"
+  ],
+  "engines": {
+    "node": ">=22.18"
+  }
+}

@@ -4,7 +4,7 @@
 // Business rules for jobs. The only layer that talks to the database.
 // =============================================================================
 
-import { db, JobState } from '../db.js';
+import { db, JobState } from '@castor/db';
 
 // -----------------------------------------------------------------------------
 // Errors
@@ -112,6 +112,18 @@ export function listJobs({ telegramUserId, state, limit }) {
       state,
     },
     orderBy: { createdAt: 'desc' },
+    take: limit,
+  });
+}
+
+/**
+ * Change feed: jobs updated after `since`, oldest change first. Clients keep
+ * the last updatedAt they saw as their next `since`.
+ */
+export function listJobChanges({ since, limit }) {
+  return db.job.findMany({
+    where: { updatedAt: { gt: new Date(since) } },
+    orderBy: { updatedAt: 'asc' },
     take: limit,
   });
 }

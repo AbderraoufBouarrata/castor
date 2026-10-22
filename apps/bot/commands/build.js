@@ -15,8 +15,6 @@ export async function build(msg, repoUrl) {
   // Anything else (GitHub down, API error) → the router replies "Something went wrong".
   if (status !== 201) throw new Error(`POST /jobs ${status}: ${JSON.stringify(data)}`);
 
-  // queued: entered the queue now. waiting: the user already has an active job.
-  return reply(msg, data.state === 'queued'
-    ? `🕒 Job ${data.id} is queued.`
-    : `⏸️ Job ${data.id} is waiting. You already have a job in progress; this one starts when it ends.`);
+  // The watcher announces queued/waiting and every later state.
+  return reply(msg, `📥 Got it! I'll keep you posted here as job ${data.id.slice(0, 8)} moves along.`);
 }

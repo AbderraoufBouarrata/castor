@@ -8,7 +8,7 @@
 
 import * as service from '../services/jobs.js';
 import { requireToken } from '../hooks/auth.js';
-import { createJobDto, listJobsDto, getJobDto } from '../dtos/jobs.dto.js';
+import { createJobDto, listJobsDto, jobChangesDto, getJobDto } from '../dtos/jobs.dto.js';
 
 // -----------------------------------------------------------------------------
 // Routes
@@ -20,6 +20,7 @@ export async function jobsController(app) {
 
   // Read (public: bot and status page)
   app.get('/jobs', { schema: listJobsDto }, list);
+  app.get('/jobs/changes', { schema: jobChangesDto }, changes);
   app.get('/jobs/:id', { schema: getJobDto }, get);
 }
 
@@ -50,6 +51,12 @@ async function create(req, reply) {
 /** GET /api/v1/jobs → jobs newest first. Optional filters: telegramUserId, state, limit. */
 async function list(req) {
   const jobs = await service.listJobs(req.query);
+  return jobs.map(present);
+}
+
+/** GET /api/v1/jobs/changes?since= → jobs updated after `since`, oldest change first. The bot polls this. */
+async function changes(req) {
+  const jobs = await service.listJobChanges(req.query);
   return jobs.map(present);
 }
 
