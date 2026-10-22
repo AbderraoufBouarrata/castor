@@ -17,7 +17,7 @@ When a job ends, the dispatcher moves the same user's oldest `waiting` job into 
 | `config.js` | Env vars and their defaults |
 | `services/scheduler.js` | Main loop: claim queued jobs into free slots, log the queue |
 | `services/simulator.js` | Walks one job through building/running with sleeps (stands in for the VM) |
-| `services/jobs.js` | Every database read and write: count, claim, mark running, finish + promote |
+| `services/jobs.js` | Every database read and write: count, claim, mark running. `finishJob` (finish + promote) comes from `@castor/db`, shared with the reaper. |
 | `helpers/log.js` | Emoji log line formatting |
 
 ## How it works
@@ -121,6 +121,17 @@ Jobs stuck in `building` or `running` (e.g. after a hard kill):
 ```bash
 psql "$DATABASE_URL" -c "select id, state, building_at from jobs where state in ('building','running')"
 ```
+
+## Docker
+
+Build from the repo root (the image needs `packages/db`):
+
+```bash
+docker build -f apps/dispatcher/Dockerfile -t castor-dispatcher .
+docker run --rm -e DATABASE_URL=postgresql://postgres@host.docker.internal:5432/castor castor-dispatcher
+```
+
+Any config var above can be passed with `-e`.
 
 ## Going real
 

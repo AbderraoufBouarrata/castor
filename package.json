@@ -5,6 +5,7 @@
     "apps/bot",
     "apps/job-api",
     "apps/dispatcher",
+    "apps/reaper",
     "packages/core",
     "packages/db"
   ],

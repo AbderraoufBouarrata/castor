@@ -1,0 +1,11 @@
+# Every image is built from the repo root. Keep the context small and never
+# copy secrets or local builds into an image.
+**/node_modules
+**/.env
+**/generated
+.git
+**/.claude
+graphify-out
+docs
+infra
+worker

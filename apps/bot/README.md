@@ -8,19 +8,36 @@ It gets updates by long polling (`getUpdates`). Nothing connects to it, so it ne
 
 ```
 user ──Telegram──> bot ──POST /api/v1/jobs (Bearer API_TOKEN)──> job-api
+user <──Telegram── bot <──GET /api/v1/jobs/changes (every 2s)──── job-api
 ```
 
 The user never sees `API_TOKEN`. It is a shared secret between the bot and job-api, both servers you run.
+
+The bot never touches the database. It submits jobs through job-api, and its watcher (`watcher.js`) polls job-api's change feed and messages each job's owner on every state change:
+
+| State | Message |
+|---|---|
+| `waiting` | ⏸️ repo is waiting: you already have a build in progress |
+| `queued` | 🕒 repo entered the queue |
+| `building` | 🔨 Building repo… |
+| `running` | 🚀 repo built in Ns and is now running |
+| `done` | ✅ repo finished, total time |
+| `failed` | ❌ repo failed: reason (from the dispatcher or the reaper) |
+| `rejected` | 🚫 repo was rejected: reason |
+
+The watcher's cursor starts when the bot starts, so changes made while the bot was down are not announced.
 
 ## Layout
 
 | Path | What |
 |---|---|
-| `index.js` | Bot start: env config, command router, poll loop |
+| `index.js` | Bot start: env config, command router, poll loop, starts the watcher |
+| `watcher.js` | Polls job-api's change feed, messages users on state changes |
+| `Dockerfile` | Production image |
 | `commands/<name>.js` | One file per command (`build`, `jobs`, `help`) |
 | `helpers/telegram.js` | Telegram Bot API client and `reply()` |
 | `helpers/api.js` | Job API client (sends `API_TOKEN`) |
-| `helpers/format.js` | Shared reply text and job formatting (state emojis) |
+| `helpers/format.js` | Shared reply text, job formatting (state emojis), state-change messages |
 | `config/setup.js` | One-time bot profile and command menu (`npm run setup`) |
 
 Adding a command: create `commands/<name>.js`, add it to `COMMANDS` in `index.js`, add it to the `setMyCommands` list in `config/setup.js`, then run `npm run setup`.
@@ -29,7 +46,7 @@ Adding a command: create `commands/<name>.js`, add it to `COMMANDS` in `index.js
 
 | Command | What it does |
 |---|---|
-| `/build <url>` | Submit `https://github.com/<owner>/<repo>`. Replies `queued`, or `waiting` if you already have a job in progress. |
+| `/build <url>` | Submit `https://github.com/<owner>/<repo>`. Replies 📥 right away; the watcher then announces `queued` or `waiting` and every later state. Tells the user if the repo is private/missing (🔒) or has no root Dockerfile (📄). |
 | `/jobs` | Your 10 most recent jobs and their state |
 | `/start`, `/help`, anything else | Usage text |
 
@@ -104,6 +121,23 @@ Does the bot's `API_TOKEN` match job-api? A `400` means auth passed, `401` means
 curl -s -o /dev/null -w "%{http_code}\n" -X POST "$API_URL/api/v1/jobs" \
   -H "Authorization: Bearer $API_TOKEN" -H 'Content-Type: application/json' -d '{}'
 ```
+
+## Docker
+
+Build from the repo root, like the other images:
+
+```bash
+docker build -f apps/bot/Dockerfile -t castor-bot .
+docker run --rm -e BOT_TOKEN=... -e API_URL=http://host.docker.internal:3000 -e API_TOKEN=... castor-bot
+```
+
+One-time profile and command menu setup from the same image:
+
+```bash
+docker run --rm -e BOT_TOKEN=... castor-bot node config/setup.js
+```
+
+Run exactly one container per `BOT_TOKEN`.
 
 ## Changing name, description, avatar or command menu
 

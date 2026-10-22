@@ -8,7 +8,10 @@ One table, `jobs`, which is also the queue.
 
 | Path | What |
 |---|---|
-| `index.js` | Shared Prisma client. Exports `db` and `JobState`. |
+| `index.js` | Package entry. Exports `db`, `JobState`, `finishJob`. |
+| `client.js` | The shared Prisma client (`db`) and `JobState` enum |
+| `jobs.js` | `finishJob`: finish a job and promote the user's next waiting one. Used by the dispatcher and the reaper. |
+| `Dockerfile` | `castor-migrate` image: runs `prisma migrate deploy` and exits |
 | `prisma/schema.prisma` | Schema: `JobState` enum and `jobs` table |
 | `prisma/migrations/` | SQL migrations. Commit these. |
 | `prisma.config.ts` | Prisma CLI config (schema path, migrations path, `DATABASE_URL`) |
@@ -83,7 +86,17 @@ import { db, JobState } from '@castor/db';
 const job = await db.job.findUnique({ where: { id } });
 ```
 
-The importing app must have `DATABASE_URL` in its own environment. `index.js` throws at import if it is missing.
+The importing app must have `DATABASE_URL` in its own environment. `client.js` throws at import if it is missing.
+
+Finishing a job (dispatcher, reaper):
+
+```js
+import { finishJob, JobState } from '@castor/db';
+
+const { finished, promoted } = await finishJob(job, JobState.failed, 'build timed out');
+// finished: false if someone else already finished it
+// promoted: the user's next job, moved from waiting to queued, or null
+```
 
 ## The jobs table
 
@@ -123,6 +136,17 @@ job-api relies on it: a unique violation on submit means "make the job `waiting`
 2. `npm run migrate -- --name <what_changed>` (e.g. `add_submitter`).
 3. `npm run generate`.
 4. Commit the schema and the new folder in `prisma/migrations/`.
+
+## Docker: castor-migrate
+
+Applies committed migrations, then exits. Run it before starting the apps (in Kubernetes: a Job, or an initContainer on job-api). Build from the repo root:
+
+```bash
+docker build -f packages/db/Dockerfile -t castor-migrate .
+docker run --rm -e DATABASE_URL=postgresql://postgres@host.docker.internal:5432/castor castor-migrate
+```
+
+The app images (job-api, dispatcher, reaper) generate the Prisma client at build time, so they need no `generate` step at run time.
 
 ## Useful checks
 
