@@ -162,9 +162,36 @@ VMIDs 100–199 are left to the host's other (personal) VMs; Castor never alloca
 - **k8s nodes** are cloned from the k8s node template by Terraform (`infra/terraform`).
 - **Ephemeral workers** are cloned from the ephemeral worker template by the dispatcher, one per job, at most 3 at a time (`MAX_CONCURRENT`). The job id in the name lets the reaper match every ephemeral worker to its job and destroy orphans (a `castor;ephemeral-worker` VM whose job is finished or missing). The dispatcher only ever allocates VMIDs inside 1000–8999.
 
+### Who manages what
+
+Each layer is kept alive by the one above it; people sit at the top.
+
+| Layer | Managed by | How |
+|---|---|---|
+| ephemeral workers | Dispatcher (create, destroy), reaper (orphans, TTL) | Proxmox API, automatically, every job |
+| k8s nodes | A person | Terraform (which VMs exist) + Ansible (k3s inside), by hand |
+| Templates, pool, tokens | A person | Ansible, by hand |
+| Proxmox host | A person | Backups stored off the host |
+
+### Decision: no management cluster (for now)
+
+Kubernetes does not create or replace nodes; it only moves pods between nodes that exist. Automatic node replacement needs a **management cluster** running Cluster API (CAPMOX provider) in its own VM, outside the cluster it heals.
+
+Not done, deliberately: on a single Proxmox host it adds a second cluster and buys little resilience, because a host failure takes every layer down together, and a single k8s node cannot be healed anyway (its cluster state dies with it; Cluster API needs 3 control-plane nodes to replace one).
+
+Recovery instead:
+
+| Failure | Recovery | Data |
+|---|---|---|
+| k8s node VM crashed, host rebooted | Proxmox restarts it (`on_boot`); k3s and the pods come back on their own | Nothing lost |
+| k8s node VM or disk lost | `terraform apply` + Ansible k3s playbook, redeploy the apps | Postgres restored from the PBS backup of the k8s node |
+| Proxmox host lost | Reinstall, restore from PBS backups stored off the host | Since last backup |
+
+Revisit when Castor runs on 3+ Proxmox hosts: management cluster with Cluster API, 3 control-plane k8s nodes, replicated storage (e.g. Longhorn), a virtual IP for the cluster (kube-vip).
+
 ## Project components
 
-Only the dispatcher holds Proxmox credentials. Everything else is deliberately powerless.
+Only the dispatcher and the reaper hold Proxmox credentials, each a token limited to the `castor` pool (the reaper's can only stop and destroy). Everything else is deliberately powerless.
 
 | Term | What it is |
 |---|---|
