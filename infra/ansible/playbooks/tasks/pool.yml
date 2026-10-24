@@ -1,0 +1,18 @@
+# =============================================================================
+# Pool: use it if it exists, create it if not.
+# Included by every playbook that puts things in the castor pool.
+# =============================================================================
+
+- name: Check whether the {{ proxmox_pool }} pool exists
+  ansible.builtin.command: pvesh get /pools/{{ proxmox_pool }}
+  register: pool
+  failed_when: false
+  changed_when: false
+  check_mode: false
+
+- name: Create the {{ proxmox_pool }} pool
+  ansible.builtin.command: >
+    pvesh create /pools
+    --poolid {{ proxmox_pool }}
+    --comment '{{ proxmox_pool_comment }}'
+  when: pool.rc != 0

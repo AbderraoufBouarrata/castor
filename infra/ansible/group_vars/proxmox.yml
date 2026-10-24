@@ -41,6 +41,51 @@ ephemeral_worker_template_vmid: 9001
 ephemeral_worker_template_name: castor-ephemeral-worker-template
 
 # -----------------------------------------------------------------------------
+# Terraform access: user, role, token (playbooks/terraform-access.yml)
+# -----------------------------------------------------------------------------
+
+proxmox_node: pve
+
+terraform_user: terraform@pve
+terraform_token_id: castor
+terraform_role: CastorTerraform
+
+# Minimum Terraform needs to clone the k8s node template into a k8s node and
+# manage it. Proxmox VE 9 names: VM.Monitor no longer exists; the guest agent
+# (used to read the VM's IP) is VM.GuestAgent.Audit.
+terraform_privileges:
+  - Datastore.AllocateSpace
+  - Datastore.Audit
+  - Pool.Allocate
+  - Pool.Audit
+  - SDN.Use
+  - Sys.Audit
+  - VM.Allocate
+  - VM.Audit
+  - VM.Clone
+  - VM.Config.CDROM
+  - VM.Config.Cloudinit
+  - VM.Config.CPU
+  - VM.Config.Disk
+  - VM.Config.HWType
+  - VM.Config.Memory
+  - VM.Config.Network
+  - VM.Config.Options
+  - VM.GuestAgent.Audit
+  - VM.PowerMgmt
+
+# Where the role applies. Nothing outside these paths: Terraform cannot see or
+# touch your personal VMs.
+terraform_acl_paths:
+  - /pool/{{ proxmox_pool }}                  # Castor VMs and templates
+  - /storage/{{ proxmox_storage }}            # disks and cloud-init drives
+  - /sdn/zones/localnetwork/{{ proxmox_bridge }} # plug NICs into the bridge
+  - /nodes/{{ proxmox_node }}                 # read node status
+
+# Terraform reads the token from here (git-ignored), on your laptop.
+terraform_secrets_file: "{{ playbook_dir }}/../../terraform/secrets.auto.tfvars"
+
+# -----------------------------------------------------------------------------
 # Ubuntu cloud image
 # -----------------------------------------------------------------------------
 

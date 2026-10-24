@@ -147,13 +147,15 @@ Four kinds of machine live on the Proxmox host. These are the only terms used fo
 
 ### Naming conventions
 
-Every VM and template starts with `castor-`, sits in a fixed VMID range for its kind, and carries Proxmox tags. Names must be DNS-safe: lowercase letters, digits, hyphens.
+Every VM and template starts with `castor-`, sits in a fixed VMID range for its kind, joins the `castor` resource pool, and carries Proxmox tags. Names must be DNS-safe: lowercase letters, digits, hyphens.
+
+VMIDs 100–199 are left to the host's other (personal) VMs; Castor never allocates there.
 
 | Term | Name | VMID | Example | Tags |
 |---|---|---|---|---|
 | k8s node template | `castor-k8s-node-template` | 9000 | `castor-k8s-node-template` | `castor;template` |
 | ephemeral worker template | `castor-ephemeral-worker-template` | 9001 | `castor-ephemeral-worker-template` | `castor;template` |
-| k8s node | `castor-k8s-node-<nn>` | 100–199 (node `nn` = 100 + `nn`) | `castor-k8s-node-01` → 101 | `castor;k8s` |
+| k8s node | `castor-k8s-node-<nn>` | 200–299 (node `nn` = 200 + `nn`) | `castor-k8s-node-01` → 201 | `castor;k8s` |
 | ephemeral worker | `castor-ephemeral-worker-<first 8 chars of job id>` | 1000–8999 | `castor-ephemeral-worker-7bfe34b6` | `castor;ephemeral-worker` |
 
 - **Templates** are built by Ansible (`infra/ansible`), never started, rebuilt in place under the same name and VMID.

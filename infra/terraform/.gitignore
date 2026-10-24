@@ -1,0 +1,9 @@
+# Your settings and the API token secret
+terraform.tfvars
+secrets.auto.tfvars
+
+# Terraform working files and state (state contains the token and VM details)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log

@@ -1,0 +1,19 @@
+# Copy to terraform.tfvars (git-ignored) and fill in.
+# The API token is NOT here: Ansible writes it to secrets.auto.tfvars.
+
+proxmox_endpoint = "https://192.168.1.10:8006/"
+proxmox_node     = "pve"
+
+# Your LAN's router, and a free address outside its DHCP range.
+gateway = "192.168.1.1"
+
+k8s_nodes = {
+  "01" = {
+    ip_cidr = "192.168.1.201/24"
+    # cores     = 2
+    # memory_mb = 4096
+    # disk_gb   = 30
+  }
+}
+
+# ssh_public_key_file = "~/.ssh/id_ed25519.pub"

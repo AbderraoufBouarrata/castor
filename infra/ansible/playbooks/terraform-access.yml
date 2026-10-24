@@ -1,0 +1,132 @@
+# =============================================================================
+# Terraform access
+#
+# Gives Terraform its own Proxmox identity, with only the permissions it needs
+# and only on Castor's things:
+#
+#   user   {{ terraform_user }}
+#   role   {{ terraform_role }}        (privileges: group_vars terraform_privileges)
+#   ACLs   {{ terraform_acl_paths | join(', ') }}
+#   token  {{ terraform_user }}!{{ terraform_token_id }}   (privilege-separated)
+#
+# The token secret is shown by Proxmox once, at creation. This playbook writes
+# it to infra/terraform/secrets.auto.tfvars on your laptop (git-ignored, 0600),
+# where Terraform picks it up automatically.
+#
+# Safe to re-run: role privileges and ACLs are re-applied, user and token are
+# created only if missing. To get a new secret, remove the token and re-run:
+#   ssh root@<host> pveum user token remove {{ terraform_user }} {{ terraform_token_id }}
+# =============================================================================
+
+- name: Give Terraform its Proxmox user, role and token
+  hosts: proxmox
+  gather_facts: false
+
+  vars:
+    token_full_id: "{{ terraform_user }}!{{ terraform_token_id }}"
+
+  tasks:
+    # -------------------------------------------------------------------------
+    # Pool (ACLs point at it, so it must exist)
+    # -------------------------------------------------------------------------
+
+    - name: Pool
+      ansible.builtin.include_tasks: tasks/pool.yml
+
+    # -------------------------------------------------------------------------
+    # Role
+    # -------------------------------------------------------------------------
+
+    - name: Check whether role {{ terraform_role }} exists
+      ansible.builtin.command: pvesh get /access/roles/{{ terraform_role }}
+      register: role
+      failed_when: false
+      changed_when: false
+      check_mode: false
+
+    - name: Create role {{ terraform_role }}
+      ansible.builtin.command: >
+        pveum role add {{ terraform_role }}
+        --privs '{{ terraform_privileges | join(",") }}'
+      when: role.rc != 0
+
+    # Re-applied every run so the role always matches group_vars.
+    - name: Set role {{ terraform_role }} privileges
+      ansible.builtin.command: >
+        pveum role modify {{ terraform_role }}
+        --privs '{{ terraform_privileges | join(",") }}'
+      when: role.rc == 0
+      changed_when: false
+
+    # -------------------------------------------------------------------------
+    # User
+    # -------------------------------------------------------------------------
+
+    - name: Check whether user {{ terraform_user }} exists
+      ansible.builtin.command: pvesh get /access/users/{{ terraform_user }}
+      register: user
+      failed_when: false
+      changed_when: false
+      check_mode: false
+
+    # No password: it can only log in through its API token.
+    - name: Create user {{ terraform_user }}
+      ansible.builtin.command: >
+        pveum user add {{ terraform_user }}
+        --comment 'Castor Terraform (API token only)'
+      when: user.rc != 0
+
+    # -------------------------------------------------------------------------
+    # Token
+    # -------------------------------------------------------------------------
+
+    - name: Check whether token {{ token_full_id }} exists
+      ansible.builtin.command: pvesh get /access/users/{{ terraform_user }}/token/{{ terraform_token_id }}
+      register: token
+      failed_when: false
+      changed_when: false
+      check_mode: false
+
+    # Privilege-separated: the token gets only what its own ACLs grant,
+    # intersected with the user's.
+    - name: Create token {{ token_full_id }}
+      ansible.builtin.command: >
+        pvesh create /access/users/{{ terraform_user }}/token/{{ terraform_token_id }}
+        --privsep 1
+        --comment 'Castor Terraform'
+        --output-format json
+      register: new_token
+      when: token.rc != 0
+      no_log: true # the output contains the secret
+
+    - name: Save the token secret for Terraform (on your laptop, mode 0600)
+      ansible.builtin.copy:
+        dest: "{{ terraform_secrets_file }}"
+        mode: "0600"
+        content: |
+          # Written by infra/ansible/playbooks/terraform-access.yml. Git-ignored. Do not commit.
+          proxmox_api_token = "{{ token_full_id }}={{ (new_token.stdout | from_json).value }}"
+      delegate_to: localhost
+      when: token.rc != 0
+      no_log: true
+
+    - name: Token already existed
+      ansible.builtin.debug:
+        msg: >
+          Token {{ token_full_id }} already exists. Its secret was saved when it was
+          created ({{ terraform_secrets_file }}); Proxmox can't show it again. To get a
+          new one: pveum user token remove {{ terraform_user }} {{ terraform_token_id }}, then re-run.
+      when: token.rc == 0
+
+    # -------------------------------------------------------------------------
+    # Permissions: same role for the user and the token, on Castor's paths only
+    # -------------------------------------------------------------------------
+
+    - name: Grant {{ terraform_role }} on Castor's paths
+      ansible.builtin.command: >
+        pveum acl modify {{ item }}
+        --roles {{ terraform_role }}
+        --users {{ terraform_user }}
+        --tokens '{{ token_full_id }}'
+      loop: "{{ terraform_acl_paths }}"
+      changed_when: false

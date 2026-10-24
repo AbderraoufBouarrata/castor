@@ -1,6 +1,13 @@
 # castor infra/ansible
 
-Builds the VM templates on the Proxmox host. Templates are built once and rebuilt only when they need to change (OS patches, new Docker version, new worker agent). Cloning them is someone else's job:
+Sets up the Proxmox host for Castor and builds what goes **inside** machines. Terraform (`infra/terraform`) decides which machines exist.
+
+| Playbook | Does | Run |
+|---|---|---|
+| `playbooks/k8s-node-template.yml` | Builds the k8s node template (VMID 9000) | Once, and to rebuild the template |
+| `playbooks/terraform-access.yml` | Gives Terraform its own Proxmox user, role and API token, scoped to Castor | Once, and after changing Terraform's privileges |
+
+Templates are built once and rebuilt only when they need to change (OS patches, new Docker version, new worker agent). Cloning them is someone else's job:
 
 | Template | VMID | Contents | Built by | Cloned by |
 |---|---|---|---|---|
@@ -15,8 +22,10 @@ Terms, names, VMID ranges and tags follow `docs/architecture.md`, "VMs and templ
 |---|---|
 | `ansible.cfg` | Points at `inventory.ini`, readable output |
 | `inventory.example.ini` | Copy to `inventory.ini` (git-ignored) and set the Proxmox host address |
-| `group_vars/proxmox.yml` | Settings: storage, bridge, template VMIDs and names, Ubuntu image URL |
+| `group_vars/proxmox.yml` | Settings: storage, bridge, pool, template VMIDs and names, Terraform's privileges, Ubuntu image URL |
 | `playbooks/k8s-node-template.yml` | Builds the k8s node template |
+| `playbooks/terraform-access.yml` | Terraform's user, role, ACLs and API token |
+| `playbooks/tasks/pool.yml` | Shared step: create the `castor` pool if missing |
 
 ## Requirements
 
@@ -100,11 +109,38 @@ ansible-playbook playbooks/k8s-node-template.yml
 
 Clones set their own CPU, memory, disk size, user, SSH key and IP through Terraform and cloud-init.
 
+## What the Terraform access playbook does
+
+```bash
+ansible-playbook playbooks/terraform-access.yml
+```
+
+1. Creates the `castor` pool if missing.
+2. Creates (or updates) role `CastorTerraform` with exactly the privileges in `terraform_privileges` (Proxmox VE 9 names).
+3. Creates user `terraform@pve`, with no password: it can only log in through its token.
+4. Creates privilege-separated token `terraform@pve!castor`, and writes its secret to `infra/terraform/secrets.auto.tfvars` on your laptop (mode 0600, git-ignored). The secret never appears in the Ansible output.
+5. Grants the role to the user and the token on Castor's paths only: `/pool/castor`, `/storage/local-lvm`, `/sdn/zones/localnetwork/vmbr0`, `/nodes/pve`. Terraform cannot see or touch your other VMs.
+
+Proxmox shows a token secret only once, at creation. If the token already exists the playbook leaves it alone. To get a new secret:
+
+```bash
+ssh root@<host> pveum user token remove terraform@pve castor
+ansible-playbook playbooks/terraform-access.yml
+```
+
+Check what Terraform can do:
+
+```bash
+ssh root@<host> pveum user permissions terraform@pve
+ssh root@<host> "pveum user token permissions terraform@pve castor"
+```
+
 ## Commands
 
 | Command | What it does |
 |---|---|
 | `ansible proxmox -m ping` | Check SSH access to the host |
+| `ansible-playbook playbooks/terraform-access.yml` | Create Terraform's user, role, ACLs and token |
 | `ansible-playbook playbooks/k8s-node-template.yml` | Build the k8s node template (skips if it exists) |
 | `ansible-playbook playbooks/k8s-node-template.yml -e rebuild=true` | Destroy and rebuild it (fails if linked clones of it still exist) |
 | `ansible-playbook playbooks/k8s-node-template.yml --check` | Dry run: show what would change. The `qm` steps are skipped in check mode. |
