@@ -23,6 +23,24 @@
 
   tasks:
     # -------------------------------------------------------------------------
+    # Pool: use it if it exists, create it if not
+    # -------------------------------------------------------------------------
+
+    - name: Check whether the {{ proxmox_pool }} pool exists
+      ansible.builtin.command: pvesh get /pools/{{ proxmox_pool }}
+      register: pool
+      failed_when: false
+      changed_when: false
+      check_mode: false
+
+    - name: Create the {{ proxmox_pool }} pool
+      ansible.builtin.command: >
+        pvesh create /pools
+        --poolid {{ proxmox_pool }}
+        --comment '{{ proxmox_pool_comment }}'
+      when: pool.rc != 0
+
+    # -------------------------------------------------------------------------
     # Already built?
     # -------------------------------------------------------------------------
 
@@ -85,6 +103,7 @@
       ansible.builtin.command: >
         qm create {{ k8s_node_template_vmid }}
         --name {{ k8s_node_template_name }}
+        --pool {{ proxmox_pool }}
         --tags '{{ template_tags }}'
         --ostype l26
         --cpu host --cores 2 --memory 2048

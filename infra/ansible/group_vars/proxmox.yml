@@ -15,6 +15,11 @@ proxmox_storage: local-lvm
 # Network bridge the VMs attach to. List yours: ip -br link | grep vmbr
 proxmox_bridge: vmbr0
 
+# Resource pool every Castor VM and template joins. The playbooks create it if
+# it is missing and use it as-is if it already exists.
+proxmox_pool: castor
+proxmox_pool_comment: "Castor build service: templates, k8s nodes, ephemeral workers"
+
 # Tags on every template.
 template_tags: castor;template
 

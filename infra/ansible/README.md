@@ -29,7 +29,36 @@ On the Proxmox host:
 
 - Proxmox VE 8 (uses `qm set --scsi0 ...,import-from=`, available since 7.2)
 - Internet access, to download the Ubuntu image and `libguestfs-tools`
+- Working apt repositories: no `enterprise.proxmox.com` repo enabled without a subscription. See [Proxmox package repositories](#proxmox-package-repositories) below.
 
+## Proxmox package repositories
+
+The playbook installs `libguestfs-tools` with apt on the Proxmox host. If any enabled repository fails, apt fails and the playbook stops at that task:
+
+```
+Failed to fetch https://enterprise.proxmox.com/debian/pbs/dists/trixie/InRelease  401  Unauthorized
+```
+
+**Why.** A fresh Proxmox VE install, and a Proxmox Backup Server (PBS) installed on the same host, enable Proxmox's **enterprise** repositories. They only serve hosts with a paid subscription key. Without one, every request gets `401 Unauthorized`: the repo delivers no updates at all, only errors.
+
+Proxmox has three repositories for each product (`pve`, `pbs`, `ceph`):
+
+| Repo | For | What you get |
+|---|---|---|
+| enterprise | Paying subscribers | Stable releases, promoted after extra time in no-subscription |
+| no-subscription | Everyone, free | The same stable releases, a little earlier. Proxmox's recommended choice without a subscription. |
+| test (`pvetest`, `pbstest`) | Developers and testers | Unreleased packages. Not this one. |
+
+**Fix, in the Proxmox UI:**
+
+1. Node (e.g. `pve`) → **Updates** → **Repositories**.
+2. Select every repository whose URI is `https://enterprise.proxmox.com/...` (`pve-enterprise`, `pbs-enterprise`, `ceph ... enterprise`) and click **Disable**.
+3. **Add** → **No-Subscription** for each product you run: Proxmox VE, and Proxmox Backup Server if PBS is installed on this host.
+4. **Updates** → **Refresh**: must finish without `401` errors.
+
+**If you use PBS** (backups of your own VMs, game servers, anything): switching the repository does not touch PBS itself. A repository is only where updates come from. Your datastores, backup jobs, schedules and existing backups keep working exactly as before, and PBS starts receiving updates and security fixes again, which it was not getting from the enterprise repo without a subscription.
+
+The UI shows a ⚠️ "The no-subscription repository is NOT production-ready" on these repos. That is Proxmox's standard notice for every non-subscription install; "production" there means business systems under a support contract. The packages are the same released versions.
 ## First run
 
 ```bash
@@ -60,13 +89,14 @@ ansible-playbook playbooks/k8s-node-template.yml
 
 ## What the k8s node template playbook does
 
-1. Stops if VM `9000` already exists (unless `-e rebuild=true`).
-2. Installs `libguestfs-tools` on the host (for `virt-customize`).
-3. Downloads the Ubuntu 24.04 cloud image to `/var/lib/vz/template/cache/`, verified against Canonical's `SHA256SUMS`. Kept for rebuilds.
-4. On a scratch copy: installs and enables `qemu-guest-agent`, empties `/etc/machine-id` so every clone gets its own identity (and DHCP lease).
-5. Creates VM `9000` named `castor-k8s-node-template`, tagged `castor;template`: 2 cores, 2 GB, virtio NIC on `vmbr0`, serial console, guest agent on.
-6. Imports the image as the boot disk, attaches a cloud-init drive (DHCP by default).
-7. Converts the VM to a template and deletes the scratch copy.
+1. Creates the `castor` resource pool if it is missing; uses it as-is if it exists (e.g. created by hand in the UI). Every Castor template and VM joins it.
+2. Stops if VM `9000` already exists (unless `-e rebuild=true`).
+3. Installs `libguestfs-tools` on the host (for `virt-customize`).
+4. Downloads the Ubuntu 24.04 cloud image to `/var/lib/vz/template/cache/`, verified against Canonical's `SHA256SUMS`. Kept for rebuilds.
+5. On a scratch copy: installs and enables `qemu-guest-agent`, empties `/etc/machine-id` so every clone gets its own identity (and DHCP lease).
+6. Creates VM `9000` named `castor-k8s-node-template` in pool `castor`, tagged `castor;template`: 2 cores, 2 GB, virtio NIC on `vmbr0`, serial console, guest agent on.
+7. Imports the image as the boot disk, attaches a cloud-init drive (DHCP by default).
+8. Converts the VM to a template and deletes the scratch copy.
 
 Clones set their own CPU, memory, disk size, user, SSH key and IP through Terraform and cloud-init.
 
